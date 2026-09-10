@@ -103,7 +103,45 @@
 %     subsubsectionstyle=show/shaded/hide]
 % \end{frame}
 
-\section{Introduction}
+\section{Avant de commencer...}
+
+\begin{exoframe}{}
+    \begin{center}
+        \Large
+        De quoi avons-nous discuté lors du derniers cours ?
+    \end{center}
+\end{exoframe}
+
+\begin{frame}{Doggy bag du dernier cours}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Le TAL...}
+            \begin{itemize}
+                \item Traite les langues naturelles
+                \item Est multidisciplinaire
+            \end{itemize}
+        \end{block}
+        \begin{block}{Le langage...}
+            \begin{itemize}
+                \item Est redondant, ambigu et implicite
+                \item Abrite de nombreux phénomènes
+            \end{itemize}
+        \end{block}
+        \begin{block}{Une machine...}
+            \begin{itemize}
+                \item Ne comprend pas le langage
+                \item Pas de connaissances du monde
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+\section{Applications VS tâches}
 
 \begin{frame}{Les applications du TAL}
     \begin{block}{Avec le TAL, on peut mettre en place~:}
@@ -198,6 +236,129 @@
     \end{center}
 \end{frame}
 
+\section{Grandes tâches du TAL}
+
+\begin{frame}{Classification de textes}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/nlp_tasks/text_classification.png}
+        \end{figure}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Ranger des récits par catégorie
+                \item Détecter des spams
+                \item Trier des textes par langue
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Recherche d'information}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/nlp_tasks/information_retrieval.png}
+        \end{figure}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Moteur de recherche
+                \item Fouille dans des jeux de données
+                \item Système de recommandation
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Reconnaissance d'entités nommées}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/nlp_tasks/named_entity_recognition.png}
+        \end{figure}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Recherche de noms de maladies
+                \item Veille informatique
+                \item Résumé automatique
+                \item Mise en relation d'entités
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Traduction automatique}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/découverte_tal/nlp_tasks/automatic_translation.png}
+        \end{figure}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Traduction en temps réel
+                \item Communication
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{exoframe}{}
+    \begin{center}
+        \Large
+        Peut-on traiter autre chose que du texte ?
+    \end{center}
+\end{exoframe}
+
+\begin{frame}{Classification d'images}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/nlp_tasks/image_classification.png}
+        \end{figure}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Système de détection de tumeurs
+                \item Tri d'images
+                \item Description d'images
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Synthèse de la parole}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/nlp_tasks/speech_processing.png}
+        \end{figure}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Assistants vocaux
+                \item Dictée vocale
+                \item Recherche vocale
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Spoil~: cours sur le traitement des données}
+    \begin{figure}
+        \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/vectorization.png}
+    \end{figure}
+\end{frame}
+
 % Tache : classification de textes
 % Application : ranger des récits par catégorie, détecter des spams, trier des textes par langue, ...
 
@@ -227,5 +388,9 @@
 
 % Tache : Analyse en parties du discours
 % Application : contribue à améliorer de nombreuses tâches portant sur le texte
+
+\begin{frame}
+    
+\end{frame}
 
 \end{document}
