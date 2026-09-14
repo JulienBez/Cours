@@ -19,3 +19,6 @@
 *.snm
 *.fdb_latexmk
 *.fls
+*.pygtex
+*.pygstyle
+*.minted

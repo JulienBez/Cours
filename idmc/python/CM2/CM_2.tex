@@ -103,6 +103,42 @@
 %     subsubsectionstyle=show/shaded/hide]
 % \end{frame}
 
+\section{Before we start...}
+
+\begin{exoframe}
+    \begin{center}
+        \Large
+        What did you learn during last lecture ? \\
+        Any questions ?
+    \end{center}
+\end{exoframe}
+
+\begin{frame}{Last Lecture Doggy bag}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Python Basics}
+            \begin{itemize}
+                \item Variables and types
+                \item Operators
+                \item Console input/output
+                \item File manipulation
+            \end{itemize}
+        \end{block}
+        \begin{block}{Control Flow}
+            \begin{itemize}
+                \item Statements
+                \item Loops
+                % \item Range
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
 \section{Lists}
 
 \begin{frame}{Lists}
@@ -214,12 +250,26 @@
             0 in [] & \tgreen{\# => False} \\
             'y' in "python" & \tgreen{\# => True} \\
             "sec" in [4, 5, "seconds"] & \tgreen{\# => False} \\
+            & \\
+            max([1,2,3,4,5]) & \tgreen{\# => 5} \\
+            min([1,2,3,4,5]) & \tgreen{\# => 1} \\
         \end{CLI}        
     \end{block}
 \end{frame}
 
 \begin{exoframe}
-
+    \begin{block}{}
+        \begin{itemize} \color{white}
+            \item[1.] Create the following list: [1,2,2,3,3,3,4,4,4,4]
+            \item[2.] Count the number of occurrence of each value in this list
+            \vspace{10pt}
+            \item[3.] Add the number 10.000 at the end of this list
+            \item[4.] Add the number 0 at the begining of this list
+            \vspace{10pt}
+            \item[5.] Remove all values which are multiple of two
+            \item[6.] Print the total number of elements in this list    
+        \end{itemize}
+    \end{block}
 \end{exoframe}
 
 \section{Dictionaries}
@@ -230,10 +280,10 @@
         \multicolumn{2}{l}{a\_dict = \{"one":1, "two":2, "toto":3\}} \\
         & \\
         print(empty\_dict) & \\
-        \tgreen{\# => \{\}} & \\
+        % \tgreen{\# => \{\}} & \\
         & \\
         print(a\_dict) & \\
-        \multicolumn{2}{l}{\tgreen{\# => \{"one":1, "two":2, "toto":3\}}} \\
+        % \multicolumn{2}{l}{\tgreen{\# => \{"one":1, "two":2, "toto":3\}}} \\
     \end{CLI}
     \begin{block}{}
         \begin{itemize}
@@ -249,8 +299,8 @@
         \multicolumn{2}{l}{a\_dict = \{"one": 1, "two": 2, "three": 3\}} \\
         & \\
         \tgreen{\# Get} & \\
-        d["one"] & \tgreen{\# => 1} \\
-        d["five"] & \tgreen{\# raises KeyError} \\
+        d["one"] & \\%\tgreen{\# => 1} \\
+        d["five"] & \\%\tgreen{\# raises KeyError} \\
         & \\
         \tgreen{\# Set} & \\
         d["two"] = 22 & \tgreen{\# Modify an existing key} \\
@@ -264,11 +314,11 @@
 \begin{frame}{get Method}
     \begin{CLI}
         \multicolumn{2}{l}{d = \{"CS":[106, 107, 110], "MATH": [51, 113]\}} \\
-        d["COMPSCI"] & \tgreen{\# raises KeyError} \\
+        d["COMPSCI"] & \\%\tgreen{\# raises KeyError} \\
         & \\
         \multicolumn{2}{l}{\tgreen{\# Use get() method to avoid the KeyError}} \\
-        d.get("CS") & \tgreen{\# => [106, 107, 110]} \\
-        d.get("PHIL") & \tgreen{\# => None (not a KeyError!)} \\
+        d.get("CS") & \\%\tgreen{\# => [106, 107, 110]} \\
+        d.get("PHIL") & \\%\tgreen{\# => None (not a KeyError!)} \\
         & \\
         \multicolumn{2}{l}{english\_classes = d.get("ENGLISH", [])} \\
         \multicolumn{2}{l}{num\_english = len(english\_classes)} \\
@@ -301,7 +351,7 @@
         d.values() & \\
         d.items() & \\
         & \\
-        len(d.keys()) & \tgreen{\# => 3} \\
+        len(d.keys()) & \\%\tgreen{\# => 3} \\
         & \\
         \multicolumn{2}{l}{\tyellow{for} key,value \tyellow{in} d.items():} \\
         ~~print(key,value) & \\
@@ -311,7 +361,18 @@
 \end{frame}
 
 \begin{exoframe}
-    
+    \begin{block}{}
+        \begin{itemize} \color{white}
+            \item[1.] Create a dictionary with 5 pairs of key:value in it
+            \item[2.] Add the following pair: "answer":42
+            \vspace{10pt}
+            \item[3.] Change all values of this dictionary to 42
+            \item[4.] Remove the key "answer" from this dictionary
+            \vspace{10pt}
+            \item[5.] Print every keys from this dictionary
+            \item[6.] Print every values from this dictionary    
+        \end{itemize}
+    \end{block}
 \end{exoframe}
 
 \section{Tuples}
@@ -322,12 +383,12 @@
         \begin{CLI}
             \multicolumn{2}{l}{fish = (1, 2, "red", "blue")} \\
             & \\
-            fish[0] & \tgreen{\# => 1} \\
-            fish[0] = 7 & \tgreen{\# Raises a TypeError} \\
+            fish[0] & \\%\tgreen{\# => 1} \\
+            fish[0] = 7 & \\%\tgreen{\# Raises a TypeError} \\
             & \\
-            len(fish) & \tgreen{\# => 4} \\
-            fish[:2] & \tgreen{\# => (1, 2)} \\
-            "red" \tyellow{in} fish & \tgreen{\# => True} \\
+            len(fish) & \\%\tgreen{\# => 4} \\
+            fish[:2] & \\%\tgreen{\# => (1, 2)} \\
+            "red" \tyellow{in} fish & \\%\tgreen{\# => True} \\
         \end{CLI}
     \end{block}
 \end{frame}
@@ -339,13 +400,13 @@
             \multicolumn{2}{l}{\tgreen{\# Comma-separated values are converted to a tuple}} \\
             \multicolumn{2}{l}{t = 12345, 54321, "hello!"} \\
             & \\
-            print(t) & \tgreen{\# => (12345, 54321, "hello!")} \\
-            type(t) & \tgreen{\# => tuple} \\
+            print(t) & \\%\tgreen{\# => (12345, 54321, "hello!")} \\
+            type(t) & \\%\tgreen{\# => tuple} \\
             & \\
             x, y, z = t & \\
-            x & \tgreen{\# => 12345} \\
-            y & \tgreen{\# => 54321} \\
-            z & \tgreen{\# => "hello!"} \\
+            x & \\%\tgreen{\# => 12345} \\
+            y & \\%\tgreen{\# => 54321} \\
+            z & \\%\tgreen{\# => "hello!"} \\
         \end{CLI}
     \end{block}
 \end{frame}
@@ -359,17 +420,23 @@
         temp = x & \\
         x = y & \\
         y = temp & \\
-        print(x,y) & \tgreen{\# => 6,5} \\
+        print(x,y) & \\%\tgreen{\# => 6,5} \\
         & \\
         \tgreen{\# Using tuple packing} & \\
         x, y = y, x & \tgreen{x and y are packed in a tuple and reassigned} \\
-        print(x,y) & \tgreen{\# => 6,5} \\
+        print(x,y) & \\%\tgreen{\# => 6,5} \\
     \end{CLI}
 \end{frame}
 
 
 \begin{exoframe}
-    %fibonacci sequence ?
+    \begin{block}{}
+        \begin{itemize} \color{white}
+            \item[1.] Create a tuple contaning all numbers from 1 to 5
+            \item[2.] Unpack this tuple in five variables
+            \item[3.] Swap the values of each variable using tuple packing
+        \end{itemize}
+    \end{block}
 \end{exoframe}
 
 \section{Sets}
@@ -380,12 +447,12 @@
         \begin{CLI}
             empty\_set = set() & \\
             \multicolumn{2}{l}{set\_from\_list = set([1,2,1,4,3])} \\
-            \tgreen{\#\{1,3,4,2\}} & \\
+            \\%\tgreen{\#\{1,3,4,2\}} & \\
             & \\
             \multicolumn{2}{l}{basket = \{"apple", "orange", "apple", "pear", "banana"\}} \\
-            len(basket) & \tgreen{\# => 4} \\
-            "orange" in basket & \tgreen{\# => True} \\
-            "crabgrass" in basket & \tgreen{\# => False} \\
+            len(basket) & \\%\tgreen{\# => 4} \\
+            "orange" in basket & \\%\tgreen{\# => True} \\
+            "crabgrass" in basket & \\%\tgreen{\# => False} \\
             & \\
             for fruit in basket: & \\
             ~~print(fruit, end='/') & \\
@@ -396,7 +463,7 @@
 
 \begin{frame}{Add and Remove Elements from Set}
     \begin{CLI}
-        a = set("mississippi") & \tgreen{\# \{'i', 'm', 'p', 's'\}} \\
+        a = set("mississippi") & \\%\tgreen{\# \{'i', 'm', 'p', 's'\}} \\
         & \\
         a.add('r') & \\
         a.remove('m') & \tgreen{\# raises KeyError if 'm' is not present} \\
@@ -404,7 +471,7 @@
         & \\
         a.pop() & \tgreen{\# => 's' (or 'i' or 'p')} \\
         a.clear() & \\
-        len(a) & \tgreen{\# => 0} \\
+        len(a) & \\%\tgreen{\# => 0} \\
     \end{CLI}
 \end{frame}
 
@@ -429,13 +496,30 @@
 \end{frame}
 
 \begin{exoframe}
-    %exo is_efficient
+    \begin{itemize} \color{white}
+        \item[1.] Create two sets of 5 elements with at least 1 common elements
+        \item[2.] Add the word "banana" in each set
+        \vspace{10pt}
+        \item[3.] Print the difference between these two sets
+        \item[4.] Print the common elements between these two sets
+        \item[5.] print the intersection between these two sets  
+    \end{itemize}
 \end{exoframe}
 
 \section{Advanced Loops}
 
 \begin{frame}{List Enumeration}
-    
+    \begin{CLI}
+        \multicolumn{2}{l}{colors = ['red','green,'blue']} \\
+        & \\
+        \multicolumn{2}{l}{\tyellow{for} index, color \tyellow{in} enumerate(colors):} \\
+        ~~print(index, color) & \\
+        & \\
+        %\tgreen{\# =>} & \\
+        %\tgreen{\# 0 red} & \\
+        %\tgreen{\# 1 green} & \\
+        %\tgreen{\# 2 blue} & \\
+    \end{CLI}
 \end{frame}
 
 \begin{frame}{Items in Dictionary}
@@ -445,9 +529,9 @@
         \multicolumn{2}{l}{for k, v in knights.items():} \\
         ~~print(k, v) & \\
         & \\
-        \tgreen{\# =>} & \\
-        \tgreen{\# gallahad the pure} & \\
-        \tgreen{\# robin the brave} & \\
+        %\tgreen{\# =>} & \\
+        %\tgreen{\# gallahad the pure} & \\
+        %\tgreen{\# robin the brave} & \\
     \end{CLI}
 \end{frame}
 
@@ -461,10 +545,10 @@
             \multicolumn{2}{l}{for q, a in zip(questions, answers):} \\
             \multicolumn{2}{l}{~~print('What is your {0}? {1}.'.format(q, a))} \\
             & \\
-            \tgreen{\# =>} & \\
-            \multicolumn{2}{l}{\tgreen{\# What is your name? Lancelot.}} \\
-            \multicolumn{2}{l}{\tgreen{\# What is your quest? To seek the holy grail.}} \\
-            \multicolumn{2}{l}{\tgreen{\# What is your favorite color? Blue.}} \\
+            %\tgreen{\# =>} & \\
+            %\multicolumn{2}{l}{\tgreen{\# What is your name? Lancelot.}} \\
+            %\multicolumn{2}{l}{\tgreen{\# What is your quest? To seek the holy grail.}} \\
+            %\multicolumn{2}{l}{\tgreen{\# What is your favorite color? Blue.}} \\
         \end{CLI}
     \end{block}
 \end{frame}
@@ -489,12 +573,12 @@
         \multicolumn{2}{l}{for fruit in sorted(basket):} \\
         ~~print(fruit)& \\
         & \\
-        \tgreen{\# =>} \\
-        \tgreen{\# apple} \\
-        \tgreen{\# banana} \\
-        \tgreen{\# orange} \\
-        \tgreen{\# pear} \\
-        \tgreen{\# pear} \\
+        %\tgreen{\# =>} \\
+        %\tgreen{\# apple} \\
+        %\tgreen{\# banana} \\
+        %\tgreen{\# orange} \\
+        %\tgreen{\# pear} \\
+        %\tgreen{\# pear} \\
     \end{CLI}
 \end{frame}
 
@@ -538,12 +622,72 @@
     \end{CLI}
 \end{frame}
 
-\begin{exoframe}
-    %your turn slide 195
-\end{exoframe}
+% \begin{exoframe}
+%     %your turn slide 195
+% \end{exoframe}
 
-\begin{frame}
-    
+\section{Functions}
+
+\begin{frame}{A Quick Peek at next Lecture}
+    \begin{CLI}
+        \multicolumn{2}{l}{\tpurple{def} fn\_name(param1, param2):} \\
+        ~~value = do\_something() & \\
+        ~~ \tpurple{return} value & \\
+    \end{CLI}
+    \begin{block}{About functions}
+        \begin{itemize}
+            \item The "def" keyword defines a function
+            \item Parameters have no explicit types
+            \item "return" is optional (None by default)
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{A Quick Peek at next Lecture}
+    \begin{CLI}
+        \multicolumn{2}{l}{def is\_prime(n):} \\
+        \multicolumn{2}{l}{~~for i in range(2, n):} \\
+        \multicolumn{2}{l}{~~~~if n \% i == 0:} \\
+        ~~~~~~return False & \\
+        ~~~~return True & \\
+        & \\
+        print(is\_prime(5)) & \tgreen{\# => True} \\
+        & \\
+        \multicolumn{2}{l}{n = int(input("Enter a number: "))} \\
+        \multicolumn{2}{l}{for x in range(2, n):} \\
+        & \\
+        ~~if is\_prime(x): & \\
+        \multicolumn{2}{l}{~~~~print(x, "is prime")} \\
+        & \\
+        ~~else: & \\
+        \multicolumn{2}{l}{~~~~print(x, "is not prime")} \\
+    \end{CLI}
+\end{frame}
+
+\begin{frame}{Doggy bag}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Data structures}
+            \begin{itemize}
+                \item Lists
+                \item Dictionaries
+                \item Tuples
+                \item Sets
+            \end{itemize}
+        \end{block}
+        \begin{block}{Advanced Python Stuffs}
+            \begin{itemize}
+                \item Advanced loops
+                \item Functions
+                % \item Range
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
 \end{frame}
 
 \end{document}
