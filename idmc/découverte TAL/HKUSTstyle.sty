@@ -68,3 +68,31 @@
 
 \mode
 <all>
+
+% CLI environment
+\newenvironment{CLI} % Command Line Interface
+    {
+    \noindent
+    \ttfamily 
+    \footnotesize
+    \begin{tcolorbox}[colback=gray!150,colframe=black]
+    \color{white}
+    \begin{tabular}{p{13.5cm}}
+    }
+    { 
+    \end{tabular}
+    \end{tcolorbox}
+    }
+
+% Exercice environment
+\newenvironment{exoframe}
+    {
+    \setbeamercolor{background canvas}{bg=hkustblue}
+    \renewcommand\thefootnote{\textcolor{white}{\arabic{footnote}}}
+    \color{white}
+    \setbeamercolor{structure}{fg=white}
+    \begin{frame}
+    }
+    {
+    \end{frame}
+    }

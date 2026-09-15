@@ -1,6 +1,5 @@
-tup = (1,2,3,4,5)
-a,b,c,d,e = tup
+def add_values(param1, param2,multi=5):
+    value = (param1 + param2) * multi
+    return value
 
-a,b,c,d,e = b,c,d,e,a
-
-print(a,b,c,d,e)
+print(add_values(2,4,multi=30))

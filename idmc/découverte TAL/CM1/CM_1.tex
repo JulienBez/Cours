@@ -39,40 +39,6 @@
 \definecolor{hkustblue}{RGB}{0, 56, 116}
 \definecolor{hkustred}{RGB}{209, 51, 59}
 
-% easy colors
-\newcommand{\tred}[1]{\textcolor{red!50}{#1}}
-\newcommand{\tgreen}[1]{\textcolor{green}{#1}}
-\newcommand{\tyellow}[1]{\textcolor{yellow}{#1}}
-\newcommand{\tpurple}[1]{\textcolor{purple!50}{#1}}
-
-% CLI environment
-\newenvironment{CLI} % Command Line Interface
-    {
-    \noindent
-    \ttfamily 
-    \footnotesize
-    \begin{tcolorbox}[colback=gray!150,colframe=black]
-    \color{white}
-    \begin{tabular}{p{4.5cm}p{7.5cm}}
-    }
-    { 
-    \end{tabular}
-    \end{tcolorbox}
-    }
-
-% Exercice environment
-\newenvironment{exoframe}
-    {
-    \setbeamercolor{background canvas}{bg=hkustblue}
-    \renewcommand\thefootnote{\textcolor{white}{\arabic{footnote}}}
-    \color{white}
-    \setbeamercolor{structure}{fg=white}
-    \begin{frame}
-    }
-    {
-    \end{frame}
-    }
-
 \lstset{
     basicstyle=\ttfamily\small,
     keywordstyle=\bfseries\color{deepblue},
@@ -191,8 +157,9 @@
             Le traitement automatique des langues (TAL), en anglais \textit{natural language processing} ou \textit{NLP}, est un domaine multidisciplinaire impliquant la linguistique, l'informatique et l'intelligence artificielle, qui vise à créer des outils de traitement des langues naturelles pour diverses applications.
         \end{tcolorbox}
     \end{block}
+    \pause
     \begin{center}
-        \Large Le TAL cherche à \textbf{traiter} \only<1>{la} \only<2->{\underline{les}} langue\only<2->{s} naturelle\only<2->{s} \\
+        \Large Le TAL cherche à \textbf{traiter} \only<2>{la}\only<3->{\underline{les}} langue\only<3->{s} naturelle\only<3->{s} \\
         Le TAL est \textbf{multidisciplinaire}
     \end{center}
 \end{frame}
@@ -228,13 +195,18 @@
     \begin{block}{Le langage naturel est...}
         \begin{itemize}
             \item redondant
+            \pause
             \item ambigu
+            \pause
             \item implicite
+            \pause
             \item vivant
             \vspace{15pt}
+            \pause
             \item bref, il est naturel
         \end{itemize}
     \end{block}
+    \pause
     \begin{center}
         \Large Conséquence~: il est difficile à \textbf{représenter}
     \end{center}
@@ -257,6 +229,7 @@
     \begin{block}{}
         \begin{itemize}
             \item L'humain observe le pigon. Il pond un oeuf.
+            \pause
             \begin{itemize}
                 \item qui pond un oeuf ? 
                 \item $\Rightarrow$ à qui fait référence "il" ?
@@ -264,6 +237,7 @@
             \pause
             \vspace{15pt}
             \item Mangez les enfants !
+            \pause
             \begin{itemize}
                 \item mieux avec la virgule...
                 \item quel sens avez-vous compris en premier ? 
@@ -271,6 +245,7 @@
             \pause
             \vspace{15pt}
             \item Il prend des vessies pour des lanternes
+            \pause
             \begin{itemize}
                 \item hein ???
                 \item les expressions nécéssitent une connaissance préalable
@@ -304,6 +279,7 @@
                 \item quoicoubeh
                 \item ...
                 \vspace{15pt}
+                \pause
                 \item Et vos néologismes ?
             \end{itemize}
         \end{block}
@@ -357,15 +333,22 @@
 \begin{frame}{Autres difficultés}
     \begin{block}{Les langues sont nombreuses}
         \begin{itemize}
+            \pause
             \item Combien de langues connaissez-vous ?
+            \pause
             \item Combien de langues dans le monde ? %environs 7000
+            \pause
             \item Combien de langues en France ? %80 officielles, plusieurs centaines en réalité
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Les langues sont multimodales}
        \begin{itemize}
+            \pause
             \item Écriture (registre, alphabet, etc)
+            \pause
             \item Parole (ton, prosodie, rythme, etc)
+            \pause
             \item Gestes (langues des signes, gestes symboliques, etc)
             \item ...
         \end{itemize} 
@@ -374,18 +357,22 @@
 
 \begin{frame}{Les objectifs du TAL}
     \begin{block}{Le TAL, ce n'est pas...}
+        \pause
         \begin{itemize}
             \item comprendre du langage
             \item \textit{prompter} des modèles de langue
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Le TAL, ça sert à...}
+        \pause
         \begin{itemize}
             \item Traiter des données en langage naturel (principalement écrit et oral)
             \item Accomplir des tâches en lien avec le langage
             \item Étudier le fonctionnement du langage
         \end{itemize}
     \end{block}
+    \pauses
     \begin{center}
         \Large
         Dans un prochain cours~: les applications du TAL
@@ -412,21 +399,25 @@
 
 \begin{frame}{Langages naturels et non naturels}
     \begin{block}{Pour résumer...}
+        \pause
         \begin{itemize}
             \item Humain~: langage naturel
+            \pause
             \item Machine~: langage non naturel
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Un exemple de langage non naturel}
         \vspace{2pt}
         \begin{CLI}
-            sentence = "Hello World" & \\
-            show\_sentence = True & \\
-            & \\
-            \tyellow{if} show\_sentence \tyellow{is} True: & \\
-            ~~\tpurple{print}(sentence) & \\
+            sentence = "Hello World" \\
+            show\_sentence = True \\
+            \\
+            if show\_sentence is True: \\
+            ~~print(sentence) \\
         \end{CLI}
     \end{block}
+    \pause
     \begin{center}
         \Large
         Autres exemples~: mathématiques, programmes logiques, etc
@@ -460,19 +451,25 @@
 \begin{frame}{Le TAL \textbf{EST} multidisciplinaire}
     %expliquer qu'on a besoin de modèles linguistiques pour mieux comprendre comment fonctionne le langage et potentiellement pour les appliquer en informatique
     \begin{block}{Un riche héritier a besoin d'argent}
+        \pause
         \begin{itemize}
             \item Une machine ne comprend pas le langage
+            \pause
             \item Une machine ne dispose pas de connaissances de notre monde
             \item $\Rightarrow$ Analyse du message = complexe
         \end{itemize}
     \end{block}
     \begin{block}{Approches envisagées pour contourner ces problématiques}
+        \pause
         \begin{itemize}
             \item Approches à base de règles (linguistique)
+            \pause
             \item Approches statistiques (mathématiques)
+            \pause
             \item Approches neuronales (neurologie)
         \end{itemize}
     \end{block}
+    \pause
     \begin{center}
         \Large
         Si on comprend un langage, on pourrait le définir \\ pour qu'une machine le comprenne (?)
