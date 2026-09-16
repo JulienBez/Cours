@@ -1,17 +1,17 @@
-\frametitle{Almost Everything is Global Scope}
+\frametitle{string.format() is a Function !}
 \begin{pythoncode}
-    success = True
+    # string.format(*args, **kwargs)
 
-    if success:
-        desc = "winner!"
-    else:
-        desc = "loser"
+    # {n} refers to the nth positional argument in "args"
+    "First, thou shalt count to {0}".format(3) # args = (3)
 
-    print(desc)
+    """{0} shalt thou not count, neither count thou {1},
+    excepting that thou then proceed to {2}""".format(4, 2, 3)
+    # args = (4,2,3)
+
+    {key} refers to the optional argument bound by key
+    "lobbest thou thy {weapon} towards thy foe".format(
+    weapon="Holy Hand Grenade of Antioch"
+    )
+    # kwargs = {"weapon": "Holy Hand Grenade of Antioch"}
     \end{pythoncode}
-    \begin{block}{}
-        \begin{itemize}
-            \item Only functions may define a new scope (local or enclosing)
-            \item Other statements and loops does not define new scopes
-        \end{itemize}
-    \end{block}

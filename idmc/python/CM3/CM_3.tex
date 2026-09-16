@@ -80,7 +80,7 @@
     \end{center}
 \end{exoframe}
 
-\begin{frame}{Doggy bag}
+\begin{frame}{Last Lecture Doggy bag}
     \begin{minipage}{0.45\columnwidth}
         \begin{block}{Data structures}
             \begin{itemize}
@@ -185,6 +185,22 @@
     \end{block}
 \end{frame}
 
+\begin{exoframe}{Exercise Time !}
+    \begin{block}{}
+        \begin{itemize} \color{white}
+            \item[1.] Create a function that give you the maximum in a list.
+            \item[2.] Create a function that reverse a string.
+            \item[3.] Add a doctstring to each function.
+            \item[4.] Type the following line with your functions names. What happens ?    
+        \end{itemize}
+    \end{block}
+    \vspace{10pt}
+    \begin{center}
+        \Large
+        print(my\_function.\_\_doc\_\_)
+    \end{center}
+\end{exoframe}
+
 \section{Parameters and Arguments}
 
 \begin{frame}[fragile]{Basic Parameters}
@@ -220,8 +236,9 @@
     \end{pythoncode}
     \begin{block}{}
         \begin{itemize}
-            \item You can add a default value to a parameter 
-            \item If a parameter is not specified, its default value is used (if it has one)
+            \item You can add a default value to a parameter
+            \item A named parameter is optional when calling the function
+            \item If a named parameter is not specified, its default value is used
         \end{itemize}
     \end{block}
 \end{frame}
@@ -240,12 +257,10 @@
         print(complaint)
         return False
     \end{pythoncode}
-    \begin{block}{}
-        \begin{itemize}
-            \item Mandatory argument: "prompt"
-            \item Keyword argument: "retries" and "complaint"
-        \end{itemize}
-    \end{block}
+    \begin{itemize}
+        \item Mandatory argument: "prompt"
+        \item Keyword argument: "retries" and "complaint"
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Arguments}
@@ -450,7 +465,7 @@
     \end{pythoncode}
 \end{frame}
 
-\begin{frame}[fragile]{Variadic Keyword Arguments}
+\begin{frame}[fragile]{Unpacking Variadic Keyword Arguments}
     \begin{pythoncode}
     info = {
         'sonnet': 18,
@@ -603,8 +618,145 @@
     \end{block}
 \end{frame}
 
-\begin{frame}
+\section{Advanced Strings}
+
+\begin{frame}[fragile]{Special Characters Handling}
+    \begin{pythoncode}
+    print('doesn\'t')               # => doesn't
+    print("doesn't")                # => doesn't
+
+    print('"Yes," he said.')        # => "Yes," he said.
+    print("\"Yes,\" he said.")      # => "Yes," he said.
     
+    print('"Isn\'t," she said.')    # => "Isn't," she said.
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{Useful String Methods}
+    \begin{pythoncode}
+    greeting = "Hello world! "
+
+    greeting.find('lo')             # => 3 (-1 if not found)
+    greeting.replace('llo', 'y')    # => "Hey world!"
+    greeting.startswith('Hell')     # => True
+    greeting.isalpha()              # => False (due to '!')
+
+    greeting.lower()                # => "hello world! "
+    greeting.title()                # => "Hello World! "
+    greeting.upper()                # => "HELLO WORLD! "
+
+    greeting.strip()                # => "Hello world!"
+    greeting.strip('dH !')          # => "ello worl"
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{String Formatting}
+    \begin{pythoncode}
+    # Curly braces in strings are placeholders
+    '{} {}'.format('monty', 'python')
+    # => 'monty python'
+
+    # Provide values by position or by placeholder
+    "{0} can be {1} {0}s".format("strings", "formatted")
+    "{name} loves {food}".format(name="Sam", food="plums")
+    
+    # Pro: Values are converted to strings
+    "{} squared is {}".format(5, 5 ** 2)
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{More String Formatting}
+    \begin{pythoncode}
+    # Pure C-style formatting, might be hard to read
+    "%s, %s, %s. (Act %d)" % ('Words', 'words', 'words', 2)
+    # => Words, words, words. (Act 2)
+
+    # String concatenation with +, is slower and clumsier
+    "I am " + str(age) + " years old."
+
+    # Newfangled formatted string literals, for Python 3.6 and over
+    f"I am {age} years old."
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{string.format() is a Function !}
+    \begin{pythoncode}
+    # string.format(*args, **kwargs)
+
+    # {n} refers to the nth positional argument in "args"
+    "First, thou shalt count to {0}".format(3) # args = (3)
+
+    """{0} shalt thou not count, neither count thou {1},
+    excepting that thou then proceed to {2}""".format(4, 2, 3) 
+    # args = (4,2,3)
+
+    {key} refers to the optional argument bound by key
+    "lobbest thou thy {weapon} towards thy foe".format(
+    weapon="Holy Hand Grenade of Antioch"
+    ) 
+    # kwargs = {"weapon": "Holy Hand Grenade of Antioch"}
+    \end{pythoncode}
+\end{frame}
+
+\begin{exoframe}{Exercise Time ! (1/2)}
+    \begin{center}
+        \Large
+        "\{0\}\{b\}\{1\}\{a\}\{0\}\{2\}".format(5, 8, 9, a="z", b="x")
+    \end{center}
+    \begin{block}{}
+        \begin{itemize} \color{white}
+            \item[1.] Observe this sequence.
+            \item[2.] Find the list of args and kwargs.
+            \item[3.] What will be the output of this sequence ?   
+        \end{itemize}
+    \end{block}
+\end{exoframe}
+
+\begin{exoframe}{Exercise Time ! (2/2)}
+    \begin{block}{}
+        \begin{itemize} \color{white}
+            \item x = 3
+            \item foo = "fighter"
+            \item y = 4
+            \item learn = 2, "fly"
+            \item z = 5
+            \vspace{5pt}
+            \item sentence = "x foo fought y foo during z hours"
+        \end{itemize}
+    \end{block}
+    \begin{block}{}
+        \begin{itemize} \color{white}
+            \item[1.] Do a string formatting on the sentence using the other variables.
+            \item[2.] Create a dictionary from these variables.
+            \item[3.] Use this dictionary instead of the variables to do the string formatting.
+        \end{itemize}
+    \end{block}
+\end{exoframe}
+
+\begin{frame}{Doggy bag}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Functions}
+            \begin{itemize}
+                \item Function definition and calling
+                \item Parameters and arguments
+                \item Variadic arguments
+                \item Python scopes
+            \end{itemize}
+        \end{block}
+        \begin{block}{Advanced strings}
+            \begin{itemize}
+                \item Special characters handling
+                \item String formatting
+                % \item Range
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
 \end{frame}
 
 \end{document}
