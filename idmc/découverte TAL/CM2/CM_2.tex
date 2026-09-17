@@ -39,40 +39,6 @@
 \definecolor{hkustblue}{RGB}{0, 56, 116}
 \definecolor{hkustred}{RGB}{209, 51, 59}
 
-% easy colors
-\newcommand{\tred}[1]{\textcolor{red!50}{#1}}
-\newcommand{\tgreen}[1]{\textcolor{green}{#1}}
-\newcommand{\tyellow}[1]{\textcolor{yellow}{#1}}
-\newcommand{\tpurple}[1]{\textcolor{purple!50}{#1}}
-
-% CLI environment
-\newenvironment{CLI} % Command Line Interface
-    {
-    \noindent
-    \ttfamily 
-    \footnotesize
-    \begin{tcolorbox}[colback=gray!150,colframe=black]
-    \color{white}
-    \begin{tabular}{p{4.5cm}p{7.5cm}}
-    }
-    { 
-    \end{tabular}
-    \end{tcolorbox}
-    }
-
-% Exercice environment
-\newenvironment{exoframe}
-    {
-    \setbeamercolor{background canvas}{bg=hkustblue}
-    \renewcommand\thefootnote{\textcolor{white}{\arabic{footnote}}}
-    \color{white}
-    \setbeamercolor{structure}{fg=white}
-    \begin{frame}
-    }
-    {
-    \end{frame}
-    }
-
 \lstset{
     basicstyle=\ttfamily\small,
     keywordstyle=\bfseries\color{deepblue},
@@ -108,7 +74,8 @@
 \begin{exoframe}{}
     \begin{center}
         \Large
-        De quoi avons-nous discuté lors du derniers cours ?
+        De quoi avons-nous discuté lors du derniers cours ? \\
+        Avez-vous des questions ?
     \end{center}
 \end{exoframe}
 
@@ -205,13 +172,15 @@
             \item Machine $\neq$ Humain
         \end{itemize}
     \end{block}
-    \begin{center}
+    \vspace{10pt}
+        \begin{center}
         \Large
-         La séparation en tâches n'est qu'une façon \\ d'avancer sans devoir se préoccuper de tout à la fois.
+         Il existe BEAUCOUP de phénomènes linguistiques, \\
+         qui sont tous interconnectés.
     \end{center}
     \begin{center}
         \Large
-         Il existe BEAUCOUP de phénomènes linguistiques.
+         La séparation en tâches n'est qu'une façon \\ d'avancer sans devoir se préoccuper de tout à la fois.
     \end{center}
 \end{frame}
 
@@ -238,6 +207,14 @@
 
 \section{Grandes tâches du TAL}
 
+\begin{exoframe}{}
+    \begin{center}
+        \Large
+        À votre avis, quelles sont les tâches du TAL ? \\
+        (Un lien Wooclap arrive...)
+    \end{center}
+\end{exoframe}
+
 \begin{frame}{Classification de textes}
     \begin{minipage}{0.45\columnwidth}
         \begin{figure}
@@ -253,6 +230,74 @@
                 \item Trier des textes par langue
             \end{itemize}
         \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Résumé automatique}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{tabular}{|p{6cm}|}
+            \hline
+            Il était une fois une petite fille de village, la plus jolie qu'on eût su voir ; sa mère en était folle, et sa mère-grand plus folle encore. Cette bonne femme lui fit faire un petit chaperon rouge, qui lui seyait si bien que partout on l'appelait le petit Chaperon rouge. Un jour, [...] \\
+            \hline
+            \multicolumn{1}{c}{$\Downarrow$} \\
+            \hline
+            Dans cette histoire, une petite fille habillée en rouge va rendre visite à sa grand-mère. Ça tourne mal, mais ça fini bien ! \\
+            \hline
+        \end{tabular}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Comptes-rendus automatiques
+                \item Extraction de mots-clefs
+                \item Synthèse de l'information
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Analyse syntaxique}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/nlp_tasks/pos_tagging.png}
+        \end{figure}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Analyse linguistique
+                \item Contribue à d'autres tâches
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Similarité textuelle}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{tabular}{|p{6cm}|}
+            \hline
+            Bonjour, je suis étudiant A. Aujourd'hui je vais vous expliquer pourquoi plagier, c'est mal. Dans cet exposé, je vais... \\
+            \hline
+            \multicolumn{1}{c}{} \\
+            \hline
+            Bonjour, je m'appelle étudiant B. Aujourd'hui je vais vous dire pourquoi plagier, c'est pas bien. Dans cet exposé, je vais ... \\
+            \hline
+            \multicolumn{1}{c}{} \\
+            \multicolumn{1}{c}{$\Downarrow$} \\
+            \multicolumn{1}{c}{} \\
+            \multicolumn{1}{c}{Similarité~: 0.70} \\
+        \end{tabular}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Détection de plagiat
+                \item Regroupement de textes similaires
+            \end{itemize}
+    \end{block}
     \end{minipage}
 \end{frame}
 
@@ -274,10 +319,30 @@
     \end{minipage}
 \end{frame}
 
+\begin{frame}{Désidentification}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{tabular}{|p{6cm}|}
+            \hline
+            Monsieur ***** souffre de lésions au niveau des bras suite à un accident de vélo qui a eu lieu rue ***** à *****. Ses lésions sont à surveiller étant donné que monsieur ***** est *****. \\
+            \hline
+        \end{tabular}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Protection de la vie privée
+                \item Anonymisation de données
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+\end{frame}
+
 \begin{frame}{Reconnaissance d'entités nommées}
     \begin{minipage}{0.45\columnwidth}
         \begin{figure}
             \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/nlp_tasks/named_entity_recognition.png}
+            \caption*{Source~: Wikipédia\footnotemark}
         \end{figure}  
     \end{minipage}
     \hfill
@@ -291,6 +356,7 @@
             \end{itemize}
     \end{block}
     \end{minipage}
+    \footnotetext{\url{https://en.wikipedia.org/wiki/Entity_linking}}
 \end{frame}
 
 \begin{frame}{Traduction automatique}
@@ -308,6 +374,58 @@
             \end{itemize}
     \end{block}
     \end{minipage}
+\end{frame}
+
+\begin{frame}{Systèmes de question / réponse}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{tabular}{|p{6cm}|}
+            \hline
+            Quelle est la capitale de la France ? \\
+            \hline
+            \multicolumn{1}{c}{$\Downarrow$} \\
+            \hline
+            Paris \\
+            \hline
+            \multicolumn{1}{c}{}\\
+            \multicolumn{1}{c}{}\\
+            \multicolumn{1}{c}{}\\
+            \hline
+            Qui a réalisé le film \textit{Blade Runner} ? \\
+            \hline
+            \multicolumn{1}{c}{$\Downarrow$} \\
+            \hline
+            Ridley Scott \\
+            \hline
+        \end{tabular}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Moteur de recherche
+                \item Support client
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Correction automatique}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/nlp_tasks/grammar_correction.png}
+            \caption*{Source~: LanguageTool\footnotemark}
+        \end{figure}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Correction en temps réel
+                \item Suggestions de mise en forme
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+    \footnotetext{\url{https://languagetool.org/}}
 \end{frame}
 
 \begin{exoframe}{}
@@ -359,38 +477,50 @@
     \end{figure}
 \end{frame}
 
-% Tache : classification de textes
-% Application : ranger des récits par catégorie, détecter des spams, trier des textes par langue, ...
+\begin{exoframe}{Exposés en groupe}
+    \begin{block}{Les consignes}
+        \begin{itemize} \color{white}
+            \item Par groupe de 5 maximum
+            \item 20-30 minutes de réflexion / préparation
+            \item 5 minutes de présentation (minimum 1 minute / étudiant)
+            %\item TOUT LE MONDE DOIT PARLER
+        \end{itemize}
+    \end{block}
+    \begin{block}{L'exposé} 
+        \begin{itemize} \color{white}
+            \item Quelle est la problématique ?
+            \item Quelle tâche pour répondre à cette problématique ?
+            \item Quelles sont les données utilisées ?
+            \item Quel est le résultat attendu ? 
+        \end{itemize}
+    \end{block}
+\end{exoframe}
 
-% Tache : recherche d'information
-% Application : moteur de recherche, fouille dans des jeux de données, système de recommandation
-
-% Tache : reconnaissance d'entités nommées
-% Application : recherche de noms de médicaments dans des textes cliniques, veille informatique, résumé automatique
-
-% Tache : Analyse automatique d'image
-% Application : système de détection de tumeur, tri d'images 
-
-% Tache : Synthèse de la parole
-% Application : assistants vocaux, dictée vocale, recherche vocale
-
-% Tache : désidentification
-% Application : anonymisation ou pseudonymisation de données sensibles
-
-% Tache : NER et entity linking (pas de bon équivalent fr ?)
-% Application : mise en relation de données, création d'ontologies, moteurs de recherche
-
-% Tache : correction syntaxique
-% Application : corrige tout ce que vous écrivez sur un ordi
-
-% Tache : traduction automatique
-% Application : multiples et self-explanatory
-
-% Tache : Analyse en parties du discours
-% Application : contribue à améliorer de nombreuses tâches portant sur le texte
-
-\begin{frame}
-    
+\begin{frame}{Doggy Bag}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Tâche VS application}
+            \begin{itemize}
+                \item Tâche~: problématique précise
+                \item Application~: répond à un "besoin"
+            \end{itemize}
+        \end{block}
+        \begin{block}{Tâches du TAL}
+            \begin{itemize}
+                \item Classification de textes
+                \item Résumé automatique
+                \item Analyse syntaxique
+                \item Similarité textuelle
+                \item Recherche d'information
+                \item ...
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
 \end{frame}
 
 \end{document}
