@@ -24,7 +24,7 @@
 \author{Julien Bezançon}
 
 \title{Découverte du Traitement Automatique des Langues}
-\subtitle{CM 2~: Tâches classiques du TAL et leurs applications}
+\subtitle{CM 2~: Tâches et applications du TAL}
 
 \institute{julien.bezancon@univ-lorraine.fr / \url{https://julienbez.github.io}}
 
@@ -110,6 +110,8 @@
 
 \section{Applications VS tâches}
 
+%TODO SLIDE RAPPEL COURS PRECEDENT OBJECTIFS DU TAL
+
 \begin{frame}{Les applications du TAL}
     \begin{block}{Avec le TAL, on peut mettre en place~:}
         \begin{itemize}
@@ -154,7 +156,6 @@
             \item Traduction automatique
             \item Analyse syntaxique
             \item Systèmes de Q\&A
-            \item Big Data
             \item etc
         \end{itemize}
     \end{block}
@@ -227,7 +228,7 @@
             \begin{itemize}
                 \item Ranger des récits par catégorie
                 \item Détecter des spams
-                \item Trier des textes par langue
+                %\item Trier des textes par langue
             \end{itemize}
         \end{block}
     \end{minipage}
@@ -250,8 +251,7 @@
         \begin{block}{Applications~:}
             \begin{itemize}
                 \item Comptes-rendus automatiques
-                \item Extraction de mots-clefs
-                \item Synthèse de l'information
+                \item Synthèse d'information
             \end{itemize}
     \end{block}
     \end{minipage}
@@ -273,6 +273,23 @@
 %     \end{block}
 %     \end{minipage}
 % \end{frame}
+
+\begin{frame}{Analyse de sentiments}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/nlp_tasks/sentiment_analysis.png}
+        \end{figure}  
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Applications~:}
+            \begin{itemize}
+                \item Analyse de réputation
+                \item Enquête de satisfaction
+            \end{itemize}
+    \end{block}
+    \end{minipage}
+\end{frame}
 
 \begin{frame}{Similarité textuelle}
     \begin{minipage}{0.45\columnwidth}
@@ -313,7 +330,7 @@
             \begin{itemize}
                 \item Moteur de recherche
                 \item Fouille dans des jeux de données
-                \item Système de recommandation
+                % \item Système de recommandation
             \end{itemize}
     \end{block}
     \end{minipage}
@@ -323,7 +340,7 @@
     \begin{minipage}{0.45\columnwidth}
         \begin{tabular}{|p{6cm}|}
             \hline
-            Monsieur ***** souffre de lésions au niveau des bras suite à un accident de vélo qui a eu lieu rue ***** à *****. Ses lésions sont à surveiller étant donné que monsieur ***** est *****. \\
+            Monsieur ***** souffre de lésions au niveau des bras suite à un accident de vélo. Ses lésions sont à surveiller étant donné que monsieur ***** est très agé. \\
             \hline
         \end{tabular}  
     \end{minipage}
@@ -351,8 +368,8 @@
             \begin{itemize}
                 \item Recherche de noms de maladies
                 \item Veille informatique
-                \item Résumé automatique
-                \item Mise en relation d'entités
+                %\item Résumé automatique
+                %\item Mise en relation d'entités
             \end{itemize}
     \end{block}
     \end{minipage}
@@ -402,7 +419,7 @@
     \begin{minipage}{0.45\columnwidth}
         \begin{block}{Applications~:}
             \begin{itemize}
-                \item Moteur de recherche
+                \item Système de recommandation
                 \item Support client
             \end{itemize}
     \end{block}
@@ -445,9 +462,9 @@
     \begin{minipage}{0.45\columnwidth}
         \begin{block}{Applications~:}
             \begin{itemize}
-                \item Système de détection de tumeurs
+                \item Système de détection
                 \item Tri d'images
-                \item Description d'images
+                %\item Description d'images
             \end{itemize}
     \end{block}
     \end{minipage}
@@ -465,7 +482,7 @@
             \begin{itemize}
                 \item Assistants vocaux
                 \item Dictée vocale
-                \item Recherche vocale
+                %\item Recherche vocale
             \end{itemize}
     \end{block}
     \end{minipage}
@@ -477,24 +494,42 @@
     \end{figure}
 \end{frame}
 
-\begin{exoframe}{Exposés en groupe}
-    \begin{block}{Les consignes}
+\begin{exoframe}{Exercices}
+    \begin{block}{Tâche ou application ?}
         \begin{itemize} \color{white}
-            \item Par groupe de 5 maximum
-            \item 20-30 minutes de réflexion / préparation
-            \item 5 minutes de présentation (minimum 1 minute / étudiant)
-            %\item TOUT LE MONDE DOIT PARLER
+            \item Moteur de recherche \only<2->{$\Rightarrow$ application}
+            \item Recherche d'information \only<2->{$\Rightarrow$ tâche}
+            \item Résumé automatique \only<2->{$\Rightarrow$ les deux}
+            \item Traduction automatique \only<2->{$\Rightarrow$ les deux}
+            \item Correction automatique \only<2->{$\Rightarrow$ les deux}
         \end{itemize}
     \end{block}
-    \begin{block}{L'exposé} 
+    \begin{block}{Questions}
         \begin{itemize} \color{white}
-            \item Quelle est la problématique ?
-            \item Quelle tâche pour répondre à cette problématique ?
-            \item Quelles sont les données utilisées ?
-            \item Quel est le résultat attendu ? 
+            \item Qu'est-ce qui est nécéssaire à la réalisation de n'importe quelle tâche en TAL?
+            \item Quelles tâches et quelles données pour un moteur de recherche ?
         \end{itemize}
     \end{block}
 \end{exoframe}
+
+% \begin{exoframe}{Exposés en groupe}
+%     \begin{block}{Les consignes}
+%         \begin{itemize} \color{white}
+%             \item Par groupe de 5 maximum
+%             \item 20-30 minutes de réflexion / préparation
+%             \item 5 minutes de présentation (minimum 1 minute / étudiant)
+%             %\item TOUT LE MONDE DOIT PARLER
+%         \end{itemize}
+%     \end{block}
+%     \begin{block}{L'exposé} 
+%         \begin{itemize} \color{white}
+%             \item Quelle est la problématique ?
+%             \item Quelle tâche pour répondre à cette problématique ?
+%             \item Quelles sont les données utilisées ?
+%             \item Quel est le résultat attendu ? 
+%         \end{itemize}
+%     \end{block}
+% \end{exoframe}
 
 \begin{frame}{Doggy Bag}
     \begin{minipage}{0.45\columnwidth}

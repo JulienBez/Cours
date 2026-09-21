@@ -24,7 +24,7 @@
 \author{Julien Bezançon}
 
 \title{Découverte du Traitement Automatique des Langues}
-\subtitle{CM 3~: }
+\subtitle{CM 3~: De la linguistique au TAL}
 
 \institute{julien.bezancon@univ-lorraine.fr / \url{https://julienbez.github.io}}
 
@@ -81,22 +81,19 @@
 
 \begin{frame}{Doggy bag du dernier cours}
     \begin{minipage}{0.45\columnwidth}
-        \begin{block}{Le TAL...}
+        \begin{block}{Tâche VS application}
             \begin{itemize}
-                \item Traite les langues naturelles
-                \item Est multidisciplinaire
+                \item Tâche = problématique précise
+                \item Application = plusieurs tâches
             \end{itemize}
         \end{block}
-        \begin{block}{Le langage...}
+        \begin{block}{Tâches du TAL}
             \begin{itemize}
-                \item Est redondant, ambigu et implicite
-                \item Abrite de nombreux phénomènes
-            \end{itemize}
-        \end{block}
-        \begin{block}{Une machine...}
-            \begin{itemize}
-                \item Ne comprend pas le langage
-                \item Pas de connaissances du monde
+                \item Classification de textes
+                \item Résumé automatique
+                \item Analyse syntaxique
+                \item Similarité
+                \item ...
             \end{itemize}
         \end{block}
     \end{minipage}
@@ -108,7 +105,7 @@
     \end{minipage}
 \end{frame}
 
-\section{Analyse linguistique}
+\section{Introduction à la linguistique}
 
 \begin{frame}{Rappel~: le langage selon une machine}
     \begin{block}{Ce que "voit" une machine}
@@ -144,13 +141,27 @@
 \begin{exoframe}
     \begin{center}
         \Large
-        Vu également~: le langage est redondant, implicite et ambigu. \\
+        Vu également~: le langage est redondant, ambigu, implicite... \\
         \vspace{20pt}
         \pause
         Afin de traiter du langage à l'aide d'une machine, \\ 
         on a besoin d'une meilleure compréhension du langage.
     \end{center}
 \end{exoframe}
+
+\begin{frame}{La linguistique, c'est quoi ?}
+    \begin{block}{Définition de Wikipédia\footnote{\url{https://fr.wikipedia.org/wiki/Linguistique}}}
+        \begin{tcolorbox}
+            La linguistique est une discipline scientifique s'intéressant à l'étude du langage. Elle n'est pas prescriptive mais descriptive. Elle se contente de décrire la langue telle qu'elle est et non telle qu'elle devrait être.
+        \end{tcolorbox}
+    \end{block}
+    \pause
+    \begin{center}
+        \Large 
+        Si on comprend un langage, on pourrait le définir \\ 
+        pour qu'une machine le comprenne (?)
+    \end{center}
+\end{frame}
 
 \begin{frame}{Niveaux d'analyse linguistique}
     \begin{block}{5 grands niveaux d'analyse}
@@ -262,6 +273,14 @@
         Techniques du TAL $\approx$ applications de ces analyses.
     \end{center}
 \end{frame}
+
+\begin{exoframe}{Exercices}
+    \begin{block}{Analysez les énoncés suivants}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+    \end{block}
+\end{exoframe}
 
 \section{Techniques du TAL}
 
@@ -375,6 +394,24 @@
             \end{itemize}
         \end{block}
     \end{minipage}
+\end{frame}
+
+\begin{exoframe}{Exercices}
+    \begin{block}{Traitez les énoncés suivants}
+        \begin{itemize}
+            \item 
+        \end{itemize}
+    \end{block}
+\end{exoframe}
+
+\begin{frame}{Limites}
+    \begin{block}{Les techniques du TAL sont limitées}
+        \begin{itemize}
+            \item Des ambiguïtés persistent
+            \item Traiter une langue $\ne$ traiter toutes les langues
+            \item JAMAIS parfaites (90~\% = environs une faute par phrase)
+        \end{itemize}
+    \end{block}
 \end{frame}
 
 
