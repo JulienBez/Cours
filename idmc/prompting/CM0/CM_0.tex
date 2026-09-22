@@ -1,0 +1,136 @@
+\documentclass[serif, aspectratio=169]{beamer}
+%\documentclass[serif]{beamer}  % for 4:3 ratio
+
+\RequirePackage{minted2}
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc}
+\usepackage{fourier} % see "http://faq.ktug.org/wiki/uploads/MathFonts.pdf" for other options
+\usepackage{hyperref}
+\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{lipsum}
+\usepackage{../HKUSTstyle}
+
+%imports customs%
+\usepackage{caption}    % for subfigures
+\usepackage{subcaption} % for subfigures
+\usepackage{ragged2e}
+\usepackage{booktabs,makecell}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{cite}
+\usepackage{tcolorbox}
+\usepackage[sort,authoryear]{natbib}
+
+\author{Julien Bezançon}
+
+\title{Prompt Engineering}
+\subtitle{Course Logistics}
+
+\institute{julien.bezancon@univ-lorraine.fr / \url{https://julienbez.github.io}}
+
+\date{}
+
+% defs
+\def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
+\def\env#1{\texttt{\color{blue}\footnotesize #1}}
+
+% set colors
+\definecolor{hkustyellow}{RGB}{167, 131, 55}
+\definecolor{hkustblue}{RGB}{0, 56, 116}
+\definecolor{hkustred}{RGB}{209, 51, 59}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{deepblue},
+    emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
+    stringstyle=\color{deepgreen},
+    numbers=left,
+    numberstyle=\small\color{halfgray},
+    rulesepcolor=\color{red!20!green!20!blue!20},
+    frame=shadowbox,
+}
+
+\begin{document} %  --- --- --- --- --- --- --- --- --- --- --- --- 
+
+\begin{frame}[noframenumbering,plain]
+    \titlepage
+    \vspace*{-0.6cm}
+    \begin{figure}[htpb]
+        \begin{center}
+            \hspace{0.3cm}
+            \includegraphics[width=0.7\columnwidth]{../../../IMAGES/loria_idmc.png}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+% \begin{frame}    
+%     \tableofcontents[sectionstyle=show,
+%     subsectionstyle=show/shaded/hide,
+%     subsubsectionstyle=show/shaded/hide]
+% \end{frame}
+
+\begin{frame}{About me} %Julien Bezançon
+
+    % \begin{figure}
+    %     \includegraphics[width=0.5\columnwidth]{../../../FIGURES/photos/profile_thug.jpeg}
+    % \end{figure}
+
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.7\columnwidth]{../../../FIGURES/photos/profile_thug.jpeg}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{You will see me in...}
+            \vspace{5pt}
+            \begin{itemize}
+                \item Software Projects \hfill M2
+                \item Written Corpora \hfill M2
+                \item Lexicology \hfill M2
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{About this course} %-- 8 weeks, 4 hours a week
+    \begin{tabular}{|p{5cm}l|}
+        \hline
+        September 22: & LMM Prompting \\
+        September 29: & TD1 \\
+        October 6: & LLM for Annotation \\
+        October 13: & TD2 \\
+        November 10: & LLM as a judge \\
+        November 17: & TD3 \\
+        November 24: & Presentations \\
+        December 1: & Presentations \\
+        December 8: & Presentations \\
+        December 15: & Exam (oral OR written) \\
+        \hline
+    \end{tabular}
+    % \pause
+    % \begin{block}{Evaluation mode}
+    %     \begin{itemize}
+    %         \item Practical sessions (33~\%)
+    %         \item Presentations (33~\%)
+    %         \item Final exam (33~\%)
+    %     \end{itemize}
+    % \end{block}
+    % \pause
+    \begin{block}{}
+        \textbf{Evaluation mode~: 50~\% presentations 50~\% exam}
+    \end{block}
+    \end{frame}
+
+% 2 CM => 01
+% 2 TD => td1
+% 2 CM => 01-02
+% 2 TD => td2
+% 2 CM => 02-03
+% 2 TD => td3
+% 2 CM => 03-consignes
+
+% 2 oraux
+% 2 oraux
+
+\end{document}
