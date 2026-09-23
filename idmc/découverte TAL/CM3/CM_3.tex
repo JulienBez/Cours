@@ -203,12 +203,38 @@
             \item Unité minimale~: le morphème
         \end{itemize}
     \end{block}
-    \begin{block}{Exemples}
-        \begin{itemize}
-            \item Autossa (dans l'auto) VS autossaniko (dans mon auto)
-            \item Ses cours VS ces cours
-        \end{itemize}
-    \end{block}
+    \vfill
+    \hrule
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Flexions}
+           \begin{itemize}
+            \item vais, vas, va, etc
+            \item maisons, maisonnettes
+           \end{itemize} 
+        \end{block}
+        \begin{block}{Compositions}
+           \begin{itemize}
+            \item appendicetomie
+            \item appendice + ectomie
+           \end{itemize} 
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Dérivations}
+           \begin{itemize}
+            \item faire, faisable (suffixation)
+            \item infaisable (préfixation)
+           \end{itemize} 
+        \end{block}
+        \begin{block}{Emprunts}
+           \begin{itemize}
+            \item abricot (origine~: arabe)
+            \item embarcation (origine~: italien)
+           \end{itemize} 
+        \end{block}
+    \end{minipage}
+    \hrule
 \end{frame}
 
 \begin{frame}{Syntaxe}
@@ -218,12 +244,23 @@
             \item Comment ? En attribuant à chaque mot sa classe grammaticale
         \end{itemize}
     \end{block}
-    \begin{block}{Exemples}
-        \begin{itemize}
-            \item Je la regarde $\Rightarrow$ la~: pronom ou déterminant ?
-            \item Jean regarde la fille avec le téléscope
-        \end{itemize}
-    \end{block}
+    \vfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{table}
+            \renewcommand{\arraystretch}{1.5}  
+            \raggedright
+            \begin{tabular}{l}
+                \wordbox{Jean observe} \wordbox{la fille} \wordbox{avec le téléscope} \\
+                \wordbox{Jean observe} \wordbox{la fille avec le téléscope} \\
+            \end{tabular}
+        \end{table}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.7\columnwidth]{../../../FIGURES/découverte_tal/pos_tagging_to_complete.png}
+        \end{figure}
+    \end{minipage}
 \end{frame}
 
 \begin{frame}{Sémantique}
@@ -233,12 +270,17 @@
             \item Unité minimale~: le sème
         \end{itemize}
     \end{block}
-    \begin{block}{Exemples}
+    \begin{block}{L'analyse sémantique s'appuie entre autre sur...}
         \begin{itemize}
-            \item Il tient la porte
-            \item Étoile~: célébrité ou astre ?
+            \item le contexte~: il tient la porte
+            \item la polysémie~: étoile $\Rightarrow$ célébrité ou astre ?
+            \item la syntaxe~: Jean observe la jeune fille avec le téléscope
         \end{itemize}
     \end{block}
+    \begin{center}
+        \Large
+        Les niveaux d'analyse sont interdépendants.
+    \end{center}
 \end{frame}
 
 \begin{frame}{Pragmatique}
@@ -251,7 +293,19 @@
     \begin{block}{Exemples}
         \begin{itemize}
             \item La pièce est dans le porte monnaie
+            \begin{itemize}
+                \item ici, pièce = argent
+                \item cotexte VS contexte
+            \end{itemize}
+            \item Il fait froid ici...
+            \begin{itemize}
+                \item cotexte~: ne nous apprend rien
+                \item contexte~: je m'adresse à la personne à côté de la fenêtre ouverte
+            \end{itemize}
             \item C'est une armoire à glace !
+            \begin{itemize}
+                \item ???
+            \end{itemize}
         \end{itemize}
     \end{block}
 \end{frame}
@@ -274,13 +328,13 @@
     \end{center}
 \end{frame}
 
-\begin{exoframe}{Exercices}
-    \begin{block}{Analysez les énoncés suivants}
-        \begin{itemize}
-            \item 
-        \end{itemize}
-    \end{block}
-\end{exoframe}
+% \begin{exoframe}{Exercices}
+%     \begin{block}{Analysez les énoncés suivants}
+%         \begin{itemize}
+%             \item 
+%         \end{itemize}
+%     \end{block}
+% \end{exoframe}
 
 \section{Techniques du TAL}
 
@@ -325,7 +379,7 @@
             \item \wordbox{Les} \wordbox{étudiants} \wordbox{mangent} \wordbox{un} \wordbox{kebab}
             \item \wordbox{pomme de terre} ou \wordbox{pomme} \wordbox{de} \wordbox{terre} ?
             \item \wordbox{tire-bouchon} ou \wordbox{tire} \wordbox{-} \wordbox{bouchon} ?
-            \item \wordbox{pierre qui roule n'amasse pas mousse} ?
+            \item \wordbox{pierre} \wordbox{qui} \wordbox{roule} \wordbox{n'}\wordbox{amasse} \wordbox{pas} \wordbox{mousse} ?
         \end{itemize}
     \end{block}
 \end{frame}
@@ -397,23 +451,122 @@
 \end{frame}
 
 \begin{exoframe}{Exercices}
-    \begin{block}{Traitez les énoncés suivants}
-        \begin{itemize}
-            \item 
+    \begin{block}{Tokenisez les énoncés suivants}
+        \begin{itemize} \color{white}
+            \item J'ai pris un rendez-vous sur le site de doctolib~: \url{https://www.doctolib.fr/} !
+            \item Budget 2027~: Sébastien Lecornu utilisera-t-il le 49.3 ?
+            \item Jean-Louis travaille à New York. Il étudie les récits de la guerre de 14-18.
         \end{itemize}
     \end{block}
 \end{exoframe}
 
 \begin{frame}{Limites}
     \begin{block}{Les techniques du TAL sont limitées}
+        % \begin{itemize}
+        %     \item Des ambiguïtés persistent
+        %     \item Traiter une langue $\ne$ traiter toutes les langues
+        %     \item JAMAIS parfaites (90~\% d'annotations correctes = environs une faute par phrase)
+        % \end{itemize}
         \begin{itemize}
-            \item Des ambiguïtés persistent
-            \item Traiter une langue $\ne$ traiter toutes les langues
-            \item JAMAIS parfaites (90~\% = environs une faute par phrase)
+            \item Des ambiguïtés persistent toujours
+            \item Traiter une langue ne revient pas à traiter toutes les langues
+            \item Les techniques du TAL ne sont pas parfaites
+        \end{itemize}
+    \end{block}
+    \begin{block}{Des inégalités existent}
+        \begin{itemize}
+            \item Langues pas/peu dôtées VS langues dôtées
+            \item Langues sans système d'écriture
         \end{itemize}
     \end{block}
 \end{frame}
 
+\begin{frame}{Des ambiguïtés persistent}
+    \begin{block}{Quelques exemples d'ambiguïtés}
+        \begin{itemize}
+            \item J'en veux plus ! \only<2->{$\Rightarrow$ quel "plus" ?}
+            \item Appendicetomie \only<2->{$\Rightarrow$ appendice + ectomie}
+            \item Jean observe son père avec ses jumelles. \only<2->{$\Rightarrow$ 3 interprétations}
+            \item \textit{He kicked the bucket}. \only<2->{$\Rightarrow$ expression ou description ?}
+            \item Le robot amuse le chat. Il bouge mécaniquement. \only<2->{$\Rightarrow$ coréférence}
+        \end{itemize}
+    \end{block}
+    \vspace{10pt}
+    \begin{center}
+        \Large
+        Autres types d'ambiguïtés~: \\
+        ironie, sarcasme, humour, plurilinguisme, etc
+    \end{center}
+\end{frame}
+
+\begin{frame}{Traiter une langue $\ne$ traiter LES langues}
+    \begin{figure}
+        \includegraphics[width=0.35\columnwidth]{../../../FIGURES/découverte_tal/List_of_languages_by_number_of_native_speakers.png}
+        \caption*{Source~: Wikipedia\footnote{\url{https://en.wikipedia.org/wiki/List_of_languages_by_total_number_of_speakers}}}
+    \end{figure}
+    Evlerimdekiler (turc) $\Rightarrow$ \textit{ceux qui sont dans les maisons}
+\end{frame}
+
+\begin{frame}{Techniques imparfaites}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=1.1\columnwidth]{../../../FIGURES/découverte_tal/pos_tagging_all_truncated.jpg}
+            \caption*{Source~: Loretta et. al, 2026\footnotemark}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Étiquetage morphosyntaxique}
+            \begin{itemize}
+                \item 90~\%, c'est quoi ? 
+                \item Taux d'annotations correctes
+                \item Une phrase en Fr = 10-15 mots
+                \item 90~\% $\Rightarrow$ 1 faute par phrase
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \footnotetext{\url{https://www.sciencedirect.com/science/article/pii/S2949719126000312}}
+\end{frame}
+
+\begin{exoframe}{Exercice}
+    \begin{block}{Identifiez les difficultés propres au traitement de ce texte}
+        \vspace{10pt}
+        \color{white} \justifying
+        Laouen evel an heol eo Yannig hiziv. Peadra zo. Emgav en deus roet da Gatell en ostaleri al Labous-Noz da 6 eur. Bravañ plac'h al lise eo Katell, ha sot eo Yannig ganti. Karout a ra he blev du hir, hag he daoulagad gell-kistin. Ha kement tra a lavar-hi a gav fur, poellek, speredek. Katell a blij dezhañ evel plac'h ebet a-raok. Pemp eur eo bremañ ha mall zo gant Yannig: a-benn un eur e kejo gant e vignonez muiañ karet ha n'eo ket prest c'hoazh! Ret eo dezhañ hastañ buan!
+    \end{block}
+    \begin{block}{}
+        \color{white}
+        Source~: \url{http://www.kervarker.org/fr/dan01_01_skrid.html}
+    \end{block}
+\end{exoframe}
+
+\begin{frame}{Doggy Bag}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Analyse linguistique}
+            \begin{itemize}
+                \item Phonétique
+                \item Morphologique
+                \item Syntaxique
+                \item Sémantique 
+                \item Pragmatique
+            \end{itemize}
+        \end{block}
+        \begin{block}{Techniques du TAL}
+            \begin{itemize}
+                \item Segmentation
+                \item Tokenisation 
+                \item Lemmatisation, racinisation
+                \item Étiquetage morphosyntaxique
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
+\end{frame}
 
 % retour sur difficultés liées au langage
 
