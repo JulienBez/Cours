@@ -24,7 +24,7 @@
 \author{Julien Bezançon}
 
 \title{Découverte du Traitement Automatique des Langues}
-\subtitle{CM 3~: De la linguistique au TAL}
+\subtitle{Hors-série 1~: Les expressions régulières}
 
 \institute{julien.bezancon@univ-lorraine.fr / \url{https://julienbez.github.io}}
 
@@ -79,33 +79,324 @@
     \end{center}
 \end{exoframe}
 
-\begin{frame}{Doggy bag du dernier cours}
-    \begin{minipage}{0.45\columnwidth}
-        \begin{block}{Analyse linguistique}
-            \begin{itemize}
-                \item Phonétique
-                \item Morphologique
-                \item Syntaxique
-                \item Sémantique 
-                \item Pragmatique
-            \end{itemize}
-        \end{block}
-        \begin{block}{Techniques du TAL}
-            \begin{itemize}
-                \item Segmentation
-                \item Tokenisation 
-                \item Lemmatisation, racinisation
-                \item Étiquetage morphosyntaxique
-            \end{itemize}
-        \end{block}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.45\columnwidth}
-        \begin{figure}
-            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
-        \end{figure}
-    \end{minipage}
+\begin{frame}{Références de ce cours}
+    \begin{itemize}
+        \item Gaël Lejeune (gael.lejeune@sorbonne-universite.fr)
+        \begin{itemize}
+            \item cours d'ingénierie des langues
+        \end{itemize}
+        \vspace{10pt}
+        \item Maxime Amblard (maxime.amblard@univ-lorraine.fr)
+        \begin{itemize}
+            \item cours de découverte du TAL
+        \end{itemize}
+        % \vspace{10pt}
+        % \item Julien Romero (julien.romero@telecom-sudparis.eu)
+        % \begin{itemize}
+        %     \item cours d'introduction au TAL
+        % \end{itemize}
+    \end{itemize}
 \end{frame}
 
+
+% \begin{frame}{Un peu de contexte}
+%     % \begin{block}{Traitement de texte en TAL}
+%     %     \begin{itemize}
+%     %         \item Segmentation
+%     %         \item Tokenisation
+%     %         \item Lemmatisation (ou racinisation)
+%     %         \item Étiquetage morphosyntaxique
+%     %     \end{itemize}
+%     % \end{block}
+%     \begin{center}
+%         \Large
+%         Parfois, on a besoin d'accéder rapidement à l'information. \\
+%         Les techniques du TAL prennent du temps à mettre en place.
+%     \end{center}
+%     \vspace{10pt}
+%     \begin{block}{Exemple~: identifier...}
+%         \begin{itemize}
+%             \item des adresses mails
+%             \item des numéros de téléphone
+%             \item les mots se terminant par -able
+%             \item des formats d'image (.png, .svg, etc)
+%         \end{itemize}
+%     \end{block}
+% \end{frame}
+
+\section{Les expressions régulières}
+
+\begin{frame}{Un petit test}
+    \begin{block}{Identifiez tous les noms et prénoms dans ce texte\footnote{Le Seigneur des anneaux, Tome 1 : La Communauté de l'Anneau de J. R. R. Tolkien}}
+        \justify
+         << Le travail était principalement effectué par son plus jeune fils, Sam Gamegie. Tant le père que le fils étaient en relations très amicales avec Bilbon et Frodon. Ils habitaient sur la Colline même, au numéro 3 du Chemin des Trous-du-Talus, juste sous Cul-de-Sac. >>
+    \end{block}
+    \vfill
+    \pause
+    \begin{block}{Deux manières pour rechercher des informations}
+        \begin{itemize}
+            \item Recherche en extension~: lister toutes les formes attendues
+            \begin{itemize}
+                \item Sam, Gamegie, Bilbon, Frodon
+            \end{itemize}
+            \item Recherche en intension~: définir des règles pour identifier les formes attendues
+            \begin{itemize}
+                \item Commence par une majuscule
+            \end{itemize}
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Les expressions régulières}
+    \begin{block}{Définition de Wikipédia\footnote{\url{https://fr.wikipedia.org/wiki/Expression_régulière}}}
+        \begin{tcolorbox}
+            En informatique, une expression régulière est une chaîne de caractères qui décrit, selon une syntaxe précise, un ensemble de chaînes de caractères possibles. Les expressions régulières sont également appelées \textbf{regex}.
+        \end{tcolorbox}
+    \end{block}
+    \begin{center}
+        \Large
+        Les regex permettent d'identifier des motifs dans des textes. \\
+        Motif~: structure formelle et régulière.
+    \end{center}
+\end{frame}
+
+\begin{frame}{Qu'appelle-t-on un motif ?}
+    \begin{block}{Motifs institutionnalisés}
+        \begin{itemize}
+            \item Urls
+            \item Adresses mails
+            \item Numéros de téléphone
+            \item Formats d'image (.png, .svg, etc)
+        \end{itemize}
+    \end{block}
+    \begin{block}{Motifs langagiers}
+        \begin{itemize}
+            \item Exemple~: trouver les expressions de la forme "prendre la X"
+            \item Ce qu'on cherche~: prendre la parole, prendre la porte, etc 
+        \end{itemize}
+    \end{block}
+    \begin{center}
+        \Large
+        Une regex permet de prendre en compte toutes \\ 
+        les variantes possibles d'un motif.
+    \end{center}
+\end{frame}
+
+\begin{exoframe}{Exercice}
+    \begin{block}{Identifiez le motif de...}
+        \begin{itemize} \color{white}
+            \item Tous les numéros de téléphone français
+            \item Toutes les adresses mails
+        \end{itemize}
+    \end{block}
+    \vspace{15pt}
+    \begin{center}
+        \Large
+        Utilisez vos mots pour décrire ces motifs !
+    \end{center}
+\end{exoframe}
+
+\begin{frame}{Solutions possibles}
+    \begin{block}{Numéros de téléphone}
+        \begin{itemize}
+            \item 8 nombres, les deux premiers sont listables (01, 03, 06, 07, etc)
+            \item Et pour ces numéros ? $\Rightarrow$ 01 01 23 45 67 || 01-01-23-45-67
+        \end{itemize}
+    \end{block}
+    \begin{block}{Adresses mails}
+        \begin{itemize}
+            \item une séquence + @ + une séquence + un suffixe (.com, .fr, etc)
+            \item bezanconjulien@gmail.com || julien.bezancon@univ-lorraine.fr
+            %\item bezancon@lisn.fr
+        \end{itemize}
+    \end{block}
+    \begin{block}{Avec des regex} %TODO : les améliorer
+        \begin{itemize}
+            \item Numéros~: ((\bs +33)|0)\bs d{9}
+            \item Mails~: \nothing [\bs w\bs -\bs .]+@([\bs w-]+\bs .)+[\bs w-]\{2,4\}
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Quelques règles}
+    \begin{block}{Chaque caractère se reconnait lui-même (majuscules et espaces compris)}
+        \begin{itemize}
+            %\item les majuscules et les espaces comptent
+            \item "lapin" reconnait "lapin", mais pas "Lapin"
+            \item "France 2" ne reconnait pas "France 3" ou "France2"
+        \end{itemize}
+    \end{block}
+    \begin{block}{Des métacaractères existent}
+        \begin{itemize}
+            \item Les opérateurs %$\Rightarrow$ fournissent des instructions complexes
+            \item les quantifieurs %$\Rightarrow$ indiquent le nombre de répétitions d'un caractère
+        \end{itemize}
+    \end{block}
+    \begin{center}
+        \Large
+        Motif~: mélange de caractères et métacaractères. \\
+        France \bs d $\Rightarrow$ reconnait "France 2", "France 3", etc
+    \end{center}
+\end{frame}
+
+\section{Opérateurs, quantifieurs et classes}
+
+\begin{frame}{Opérateurs}
+    \begin{table}
+        \renewcommand{\arraystretch}{1.5}  
+        \raggedright
+        \begin{tabular}{|c|p{10cm}|}
+            \hline
+            () & groupe de caractères \\
+            \hline
+            . & n'importe quel caractère \\
+            \hline
+            | & une expression OU une autre expression \\
+            \hline
+            $\hat{}$ & condition~: expression au début de ligne \\
+            \hline 
+            \$ & condition~: expression en fin de ligne \\
+            \hline
+            {[} {]} & n'importe quel caractère entre les crochets \\
+            \hline
+            {[} $\hat{}$ {]} & n'importe quel caractère qui n'est pas entre les crochets \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Quantifieurs}
+    \begin{table}
+        \renewcommand{\arraystretch}{1.5}  
+        \raggedright
+        \begin{tabular}{|c|p{9.5cm}|}
+            \hline
+            ? & une expression 0 ou 1 fois \\
+            \hline
+            + & une expression 1 fois ou plus \\
+            \hline
+            * & une expression 0 fois ou plus \\
+            \hline
+            \{n\} & une expression exactement n fois \\
+            \hline
+            \{n,m\} & une expression entre n et m fois \\
+            \hline
+            \{n,\} & une expression au moins n fois \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Classes de caractères}
+    \begin{table}
+        \renewcommand{\arraystretch}{1.5}  
+        \raggedright
+        \begin{tabular}{|c|p{9.8cm}|}
+            \hline
+            \bs w & caractères alphanumériques \\
+            \hline
+            \bs W & caractères autres que alphanumériques \\
+            \hline
+            \bs s & caractères d'espacement \\
+            \hline
+            \bs S & caractères autres que ceux 
+            d'espacement \\
+            \hline
+            \bs d & chiffres décimaux \\
+            \hline
+            \bs D & caractères autres que chiffres décimaux \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{exoframe}{Exercice}
+    
+\end{exoframe}
+
+\begin{frame}{Trucs et astuces}
+    \begin{block}{"\bs " permet de dé-spécialiser des caractères}
+        \begin{itemize}
+            \item \bs . $\Rightarrow$ un simple point
+            \item \bs ( $\Rightarrow$ une simple parenthèse
+        \end{itemize}
+    \end{block}
+    \begin{block}{"{[} {]}" peut s'utiliser d'une autre manière}
+        \begin{itemize}
+            \item {[}a-z{]} $\Rightarrow$ toutes les lettres de "a" à "z"
+            \item {[}A-Z{]} $\Rightarrow$ toutes les lettres de "A" à "Z"
+            \item {[}1-9{]} $\Rightarrow$ tous les chiffres de "1" à "9"
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+            % \hline
+            % \{n\} & Un caractère n fois \\
+    % \begin{itemize}
+    %     \item "(" et ")" $\Rightarrow$ agissent comme séparateurs
+    %     \item "|" $\Rightarrow$ agit comme l'opérateur "ou" 
+    %     \begin{itemize}
+    %         \item "a|b" reconnaît "a" ou "b" 
+    %         \item "(madame)|(monsieur)" reconnaît "madame" ou "monsieur"
+    %     \end{itemize}
+    %     \vspace{10pt}
+    %     \item "\bs " permet de dé-spécialiser des caractères 
+    %     \begin{itemize}
+    %         \item les caractères spéciaux~: *, [, ], etc
+    %         \item les classes de caractères~: \bs w, \bs b, \bs x, etc
+    %     \end{itemize}
+
+%slide pour expliquer motif 
+% \begin{itemize}
+% \item Si je recherche toutes les expressions de la forme « prendre la + X »
+% \item J'espère trouver  : prendre la parole, prendre la porte, prends la parole \dots
+% \item Comment expliquer tout ça ?
+% \pause
+
+% \item On ne peut pas lister tous les exemples (description en extension)
+% \pause
+% \item Donc on généralise, on donne des règles (description en intension), ce sont les \textbf{ expressions régulières}
+% \end{itemize}
+
+% \begin{frame}{Expressions régulières}
+
+% Un outil pour trouver des séquences suivant un même \textbf{motif}.
+% \pause      
+%  Les mots ayant le même :
+% \begin{itemize}
+%   \item préfixe
+%   \item suffixe
+%   \item contexte
+% \end{itemize}
+% Ou des expressions qui suivent des règles un peu spécifiques :
+% \begin{itemize}
+%   \item Des dates
+%   \item Des urls
+%   \item Des adresses (mail ou postales)
+% \end{itemize}
+% \pause
+% Une expression régulière c'est \textbf{une représentation condensée de multiples séquences de mots, de multiples chaînes de caractères}
+% \end{frame}
+
+% \begin{frame}{Comment fonctionne une Reg Ex ?}
+% Règle générale : chaque caractère se reconnaît lui-même
+
+% « lapins » reconnaîtra « lapins » mais pas « lapin »
+% \pause
+% « France 2 » ne reconnaîtra pas « France 3 » ou « France 4 »
+
+% $\rightarrow$ On voudrait reconnaître France + chiffre
+
+% Cas particuliers : les metacaractères, on distingue deux classes:
+% \begin{itemize}
+% \item Les opérateurs
+% \item Les quantifieurs
+% \end{itemize}
+
+% Ils permettent de reconnaître plus de choses que leur seul caractère
+% \end{frame}
+
+
+% slide pk on ne fait pas tout en regex : identifier les noms de famille : Un magicien n'est jamais en retard, Frodon Sacquet, ni en avance d'ailleurs. Il arrive précisément à l'heure prévue. => comment distinguer frodon de saquet ?
 
 \end{document}
