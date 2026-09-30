@@ -1,0 +1,18 @@
+questions to Claire Gardent
+
+- TD1, what are those lines for ? 
+
+messages = [
+            {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."},
+            # {"role": "user", "content": Q1}
+            # {"role": "assistant", "content": A2}
+            # {"role": "user", "content": Q2}
+            # {"role": "assistant", "content": A1}
+            # {"role": "user", "content": real Q}
+            # {"role": "assistant", "content": }
+        ]
+
+- TD1, what do you mean by this in Part 6 ? 
+	Implement your solution in batch mode for efficient inference.
+	
+

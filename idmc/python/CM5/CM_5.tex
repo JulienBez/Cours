@@ -9,7 +9,7 @@
 \usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
 \usepackage{graphicx,pstricks,listings,stackengine}
 \usepackage{lipsum}
-\usepackage{../HKUSTstyle}
+\usepackage{../../../TEMPLATES/template_style}
 
 %imports customs%
 \usepackage{caption}    % for subfigures
@@ -25,7 +25,7 @@
 \author{Julien Bezançon}
 
 \title{Python Programmation}
-\subtitle{CM 4~: Data Manipulation}
+\subtitle{CM 5~: File Handling}
 
 \institute{julien.bezancon@univ-lorraine.fr / \url{https://julienbez.github.io}}
 
@@ -92,7 +92,24 @@
     \end{minipage}
 \end{frame}
 
-\section{Data Formats}
+\section{Components of a File}
+
+\begin{frame}{What is a File ?}
+    \begin{block}{A file...}
+        \begin{itemize}
+            \item is a document which stores information
+            \item can be hand-made or numeric (or even hand-made, then numerized)
+            \item may have some sort of structure to respect when writing or reading it
+        \end{itemize}
+    \end{block}
+    \begin{block}{Core components of a file}
+        \begin{itemize}
+            \item File format
+            \item File extension
+            \item Character encoding
+        \end{itemize}
+    \end{block}
+\end{frame}
 
 % \begin{frame}{Data Types}
 %     \begin{block}{You already know about data types}
@@ -112,29 +129,316 @@
 %     \end{center}
 % \end{frame}
 
-\begin{frame}
+\begin{frame}{What is a File Format ?}
+    \begin{block}{Wikipedia Definition\footnote{\url{https://en.wikipedia.org/wiki/File_format}}}
+        \begin{tcolorbox}
+            A file format is the way that information is encoded for storage in a computer file. It may describe the encoding at various levels of abstraction including low-level bit and byte layout as well high-level organization such as markup and tabular structure. A file format may be standardized (which can be proprietary or open) or it can be an ad hoc convention.
+        \end{tcolorbox}
+    \end{block}
+    \begin{center}
+        \Large
+        File format define the the structure of a file. \\
+        It can be standardized or ad hoc.
+    \end{center}
     %human-readable vs machine readable format
     %compromises = can be read by humans but has a strict structure to facilitate navigation with a machine
     % example : markup languages => set of rules to combine with desired content to create a format both readable by a human and easily manipulable by a machine
     %add image of a codebarre + image of a markup language (HTML ?) + image of human readable format 
 \end{frame}
 
-\begin{frame}
-    %frame about encoding informations in a file
-    % when writing a data, it is saved in in bytes, you ENCODE it to bytes 
-    % a byte is a contiguous sequence of bits => 00000110 (6)
-    % several files encoding = several ways of encoding data to bytes, you must be careful when encoding files => most common = UTF-8
-    % format => describes a set of valid sequences of symbols. When applied to the bytes of a file, it open it correctly
+\begin{frame}{What is a Filename Extension ?}
+    \begin{block}{Wikipedia Definition\footnote{\url{https://en.wikipedia.org/wiki/Filename_extension}}}
+       \begin{tcolorbox}
+        A filename extension, also known as file name extension or file extension, is a suffix to the name of a computer file that indicates a characteristic of the file contents or its intended use.
+       \end{tcolorbox} 
+    \end{block}
+    \begin{center}
+        \Large
+        Filename extension indicates the format of a file to your computer. \\
+        Some examples: .txt, .mp3, .parquet, .json, etc
+    \end{center}
 \end{frame}
 
-\begin{frame}
-    % extensions => txt, json, cvs, tsv, parquet, ...
-    % the extension indicate the format to use when reading a file => how to read the bytes in a file 
-    % show most common formats and say that we are going to work with them in python
+\begin{frame}{What is a Character Encoding ?}
+    \begin{block}{Wikipedia Definition\footnote{\url{https://en.wikipedia.org/wiki/Character_encoding}}}
+        \begin{tcolorbox}
+            Character encoding is a convention of using a numeric value to represent each character of a writing script. The most popular character encoding on the World Wide Web is UTF-8, which is used in 99.0\% of surveyed web sites, as of September 2026.
+        \end{tcolorbox}
+    \end{block}
+    \begin{center}
+        \Large
+        Character encoding define how each character is \\ encoded in bits and decoded from bits.
+    \end{center}
 \end{frame}
 
-\begin{frame}
-    % text format => very simple,
+\begin{frame}{Example of Character Encoding}
+    \begin{figure}
+        \includegraphics[width=0.65\columnwidth]{../../../FIGURES/python/character_encoding.png}
+        \caption*{Source: GeeksforGeeks\footnote{\url{https://www.geeksforgeeks.org/computer-science-fundamentals/what-is-character-encoding-system/}}}
+    \end{figure}
 \end{frame}
+
+% \begin{frame}{Why File Manipulation is Important}
+%     \begin{block}{}
+%         \begin{itemize}
+%             \item Access external data and process it
+%             \item Store data after the program ends
+%             \item 
+%         \end{itemize}
+%     \end{block}
+% \end{frame}
+
+\begin{frame}{Human VS Machine Readability}
+    \begin{block}{Human-readable Formats}
+        \begin{itemize}
+            \item Can be interpreted by a human reading it
+            \item Might be harder to process with machines
+            \item .pdf, .docx, .ods, etc
+        \end{itemize}
+    \end{block}
+    \begin{block}{Machine-readable Formats}
+        \begin{itemize}
+            \item Can not be interpreted by a human reading it
+            \item binary files, parquet files, ...
+        \end{itemize}
+    \end{block}
+    \begin{center}
+        \Large
+        Some formats are convenients for both humans and machines. \\
+        Some examples: .json, .csv, .xml, etc
+    \end{center}
+\end{frame}
+
+\begin{exoframe}
+    \begin{block}{Describe the following file formats:}
+        \begin{itemize} \color{white}
+            \item text file format
+            \item comma separated values
+            \item tabulation separated values
+            \item javascript object notation
+            \item parquet file format
+        \end{itemize}
+    \end{block}
+    \vspace{10pt}
+    \begin{center}
+        \Large
+        More precisely, describe their data structure \\ and how you would process them.
+    \end{center}
+\end{exoframe}
+
+\section{Handling a File in Python}
+
+\begin{frame}[fragile]{File Opening and Writing (1/2)}
+    \begin{pythoncode}
+    with open("filepath.txt","r") as f:
+        content = f.read() # load filepath.txt content
+
+    with open("filepath.txt","w") as f:
+        f.write(content) # save content to filepath.txt
+    \end{pythoncode}
+    \vfill
+    \begin{block}{What would happen if...}
+        \begin{itemize}
+            \item I change the filename extension ?
+            \item I change the file format ?
+            \item I change the encoding of the file ?
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{File Opening and Writing (2/2)}
+    \begin{block}{Changing filename extension}
+        \begin{itemize}
+            \item Will not change anything
+            \item \wordbox{open()} always read a file as a string (or a list of strings)
+        \end{itemize}
+    \end{block}
+    \begin{block}{Changing file format}
+        \begin{itemize}
+            \item Will not change anything
+            \item Problem: everything will be in a string (data structure is "lost")
+        \end{itemize}
+    \end{block}
+    \begin{block}{Changing the encoding}
+        \begin{itemize}
+            \item May result in incorrect reading of the file
+            \item Solution: use \wordbox{encoding='your\_file\_encoding'} in \wordbox{open()}
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{First Warning: Encoding}
+    \begin{block}{Encoding mistakes are pretty common}
+        \begin{itemize}
+            \item Linux and Mac: UTF-8
+            \item Windows: Unicode or ANSI
+        \end{itemize}
+    \end{block}
+    \begin{block}{How to find and fix them}
+        \begin{itemize}
+            \item Check file encoding before opening it
+            \item Open your file and print some content from it
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Second Warning: Pathing}
+    \begin{block}{Two kinds of path}
+        \begin{itemize}
+            \item Relative path
+            \begin{itemize}
+                \item my\_data\_folder/file.txt
+            \end{itemize}
+            \item Absolute path
+            \begin{itemize}
+                \item /home/documents/my\_data\_folder/file.txt
+            \end{itemize}
+        \end{itemize}
+    \end{block}
+    \begin{block}{Path syntax may vary}
+        \begin{itemize}
+            \item Linux: uses slashes (/) to navigate through folders
+            \item Windows: uses backslashes (\bs) to navigate through folders
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{String Parsing}
+    \begin{center}
+        \Large
+        You can use string methods to extract structured data from a string.
+    \end{center}
+    \begin{block}{How to do it ?}
+        \begin{itemize}
+            \item By understanding the file structure
+            \item By converting the file content to a python data structure
+        \end{itemize}
+    \end{block}
+    \begin{block}{Disadvantages}
+        \begin{itemize}
+            \item Takes time, prone to making errors
+            \item Harder/impossible parsing for some file formats (.json, .parquet, etc)
+        \end{itemize}
+    \end{block}
+    % you can apply rules and conditions when opening a file, so that you can read it correctly
+\end{frame}
+
+\begin{frame}[fragile]{An Example (.csv)}
+    \begin{pythoncode}
+    content = """"
+    name,username,id,description
+    toto,toto78,123,his name is toto
+    titi,titati,456,he likes cheese
+    """ # this is a csv file structure
+
+    structured = content.split("\n") # separate each line
+    structured = [i.split(",") for i in structured]
+
+    print(structured)
+    # [["name","username","id","description"],
+    #  ["toto","toto78","123","his name is toto"],
+    #  ["titi","titato","456","he likes cheese"]]
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{Another Example (.parquet)}
+    \begin{block}{Validation file of the PICO-corpus\footnote{\url{https://huggingface.co/datasets/cuevascarlos/PICO-breast-cancer}} in Codium text editor}    
+        \begin{figure}
+            \includegraphics[width=1\columnwidth]{../../../FIGURES/python/parquet_file_native.png}
+        \end{figure}
+    \end{block}
+    \begin{block}{Solution: use dedicated libraries}
+    \vspace{10pt}
+    \begin{pythoncode}
+    import datasets
+    datasets = load_dataset(
+        "cuevascarlos/PICO-breast-cancer", "Default_split-v2")
+    \end{pythoncode}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Dedicated Libraries}
+    % \begin{center}
+    %     \Large
+    %     Some Python libraries are designed to handle a specific file format.
+    % \end{center}
+    \begin{block}{Some examples of dedicated libraries}
+        \begin{itemize}
+            \item json: json, ujson, orjson, rapidjson 
+            \item csv: csv, pandas, polars, pyarrow, dask 
+            \item parquet: parquet, datasets, pyarrow 
+            \item xml: xml, lxml, expat, minidom 
+        \end{itemize}
+    \end{block}
+    \begin{block}{Disadvantages}
+        \begin{itemize}
+            \item Adds dependencies to your code
+            \item You still have to take a look at the data structure !
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\section{Navigating Through a File in Python}
+
+\begin{frame}{File structure VS Python structure}
+    \begin{block}{}
+        \begin{tabular}{rllr}
+            Read mode: & \wordbox{file content structure} & $\Rightarrow$ & \wordbox{Python data structure} \\
+            Write mode: & \wordbox{Python data structure} & $\Rightarrow$ & \wordbox{file content structure} \\
+        \end{tabular}
+    \end{block}
+    \begin{block}{Python data structure}
+        \begin{itemize}
+            \item Native structures: lists, tuples, dictionaries, sets
+            \item Custom structures: pandas.Series, array, etc 
+        \end{itemize}
+    \end{block}
+    \begin{center}
+        \Large
+        In Python, most data structures works like \\ a blending of lists and dictionaries.
+    \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{An Example (.csv)}
+    \begin{pythoncode}
+    # lets take structured
+    # [["name","username","id","description"],
+    #  ["toto","toto78","123","his name is toto"],
+    #  ["titi","titato","456","he likes cheese"]]
+
+    # get the username of the first element
+    username_1 = structured[1][1]
+
+    # print every usernames
+    for i in structured[1:]:
+        print(i[1])
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{Another Example (.parquet)}
+    \begin{pythoncode}
+    import datasets
+    datasets = load_dataset(
+        "cuevascarlos/PICO-breast-cancer", "Default_split-v2")
+    
+    validation = datasets["validation"]
+    validation_ids = validation["ids"]
+
+    for i in validation_ids:
+        print(i)
+    \end{pythoncode}
+\end{frame}
+
+
+
+%exercises:
+% open txt/csv/csv_delimiters/json formats
+% edit each of these formats by adding things in them
+% deleting things in them
+% make a loop on each value of file
+% open conll and convert it to json
+% convert json to conll
+% open a parquet file
+% extract an archive
 
 \end{document}

@@ -25,7 +25,7 @@
 \author{Julien Bezançon}
 
 \title{Python Programmation}
-\subtitle{First Course Recap}
+\subtitle{CM4~: First Course Recap}
 
 \institute{julien.bezancon@univ-lorraine.fr / \url{https://julienbez.github.io}}
 
@@ -167,17 +167,100 @@
     \end{center}
 \end{exoframe}
 
-\begin{pythoncode}
+\begin{frame}{Respect the Rules}
+    \begin{itemize}
+        \item Here is the intented name of a notebook: TD1\_LASTNAME\_LASTNAME.ipynb
+        \item A TD without your name $\Rightarrow$ points denied
+        \item A TD without the name of your binom $\Rightarrow$ points denied
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Do What I Ask for}
+    \begin{itemize}
+        \item "Write a function to..." $\Rightarrow$ function expected
+    \end{itemize}
+    \begin{pythoncode}
+    a = 1
+    b = 2
+
+    my_add_function = ( a + b)
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{Identation Error}
+    \begin{itemize}
+        \item Stick to one identation scheme (2 spaces or 4 spaces for instance, not both)
+    \end{itemize}
+    \begin{pythoncode}
     def my_add_function(a,b):
         return a + b
 
     def my_add_function(a,b):
       return a + b
-\end{pythoncode}
+    \end{pythoncode}
+\end{frame}
 
-\begin{pythoncode}
-    
-\end{pythoncode}
+\begin{frame}[fragile]{Identation Error II, the Return}
+    \begin{itemize}
+        \item "return" should not be in a loop, unless you add a condition 
+    \end{itemize}
+    \begin{pythoncode}
+    def find_mystery_number():
+        guess = 1
+        while hot_or_cold(guess) != "bingo bango!":
+            guess += 1 
+            return guess
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{Variables Names Matters}
+    \begin{itemize}
+        \item Don't use variable names which are used in Python builds-in
+    \end{itemize}
+    \begin{pythoncode}
+    list = []
+    list.append(i)
+    len(list)
+    list[i]
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{Function Calling}
+    \begin{itemize}
+        \item Be careful with function calling, names must be respected
+    \end{itemize}
+    \begin{pythoncode}
+    def convert_fahr_to_cels(def_fahr):
+        # do stuff...
+
+    fahrenheit_to_celsius(fahrenheit)
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{"Inspiration" VS plagiarism}
+    \begin{itemize}
+        \item DO NOT COPY/PASTE SOMEONE ELSE CODE !!!
+    \end{itemize}
+    \begin{pythoncode}
+    # Influenced by "some url"
+
+    def collatz_number(n):
+        # do stuff...
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}{Other Remarks}
+    \begin{itemize}
+        \item Always make sure that you call your functions or print the result in a cell 
+        \item If I have to edit your notebook to see a cell output, I will substract some points
+        \item Be careful when sending yout TDs, I got two empty TDs...
+    \end{itemize}
+\end{frame}
+
+% toujours appeler les fonctions à un moment, sinon je dois éditer le code pour le faire moi-même
+% si je dois éditer le code, c'est que vous l'avez pas ou mal testé ou que vous cachez quelque chose, et c'est des pts en moins
+
+%be careful when sending your TD => i got 1 case of empty TD
 
 \begin{exoframe}
     \begin{center}
@@ -185,5 +268,37 @@
         Now, let's proceed to the corrections !
     \end{center}
 \end{exoframe}
+
+\begin{frame}[fragile]{Infinite Loop} %error if number < 10
+    \begin{pythoncode}
+    def find_mystery_number(): 
+        guess = 10
+        while True:
+            result = hot_or_cold(guess)
+            if result == "bingo bango!":
+                return guess
+            if result == "you're hot!":
+                break
+            guess += 9
+        guess -= 4
+        while True:
+            result = hot_or_cold(guess)
+            if result == "bingo bango!":
+                return guess    
+            guess += 1
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{String Warning} %if i use another dict, it wont work + " inside f"" can result in an error, use ' instead
+    \begin{pythoncode}
+    # write your code here
+    dict_contents=({"chimps": 42, "peanuts": 0})
+
+    def silly_messager(**d):
+    print(f"As for chimps, I've got {d["chimps"]}, sadly.")
+    
+    silly_messager(**dict_contents)
+    \end{pythoncode}
+\end{frame}
 
 \end{document}
