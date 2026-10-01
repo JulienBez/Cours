@@ -82,7 +82,21 @@
 
 \begin{frame}{Last Lecture Doggy bag}
     \begin{minipage}{0.45\columnwidth}
-
+        \begin{block}{Functions}
+            \begin{itemize}
+                \item Function definition and calling
+                \item Parameters and arguments
+                \item Variadic arguments
+                \item Python scopes
+            \end{itemize}
+        \end{block}
+        \begin{block}{Advanced strings}
+            \begin{itemize}
+                \item Special characters handling
+                \item String formatting
+                % \item Range
+            \end{itemize}
+        \end{block}
     \end{minipage}
     \hfill
     \begin{minipage}{0.45\columnwidth}
@@ -378,6 +392,40 @@
     \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Common Practices}
+    \begin{pythoncode}
+    # Create a folder
+    if not os.path.exists("my_path"):
+        os.makedir("my_path")
+
+    # Create multiple folders
+    Create a folder
+    if not os.path.exists("my_folder/my_path"):
+        os.makedirs("my_folder/my_path")
+
+    # Get all paths of files in a folder
+    import glob
+    path_list = [path for path in glob.glob("my_path/*.txt")]
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{Looping Through Files}
+    \begin{pythoncode}
+    import glob
+
+    for path in glob.glob("my_path/*.txt"):
+        # process the file
+    \end{pythoncode}
+    \vfill
+    \begin{block}{General tips}
+        \begin{itemize}
+            \item Don't overwrite files - make copies !
+            \item Always make sure the file is well-structured first
+            \item Use \wordbox{try} and \wordbox{expect} to handle possible errors
+        \end{itemize}
+    \end{block}
+\end{frame}
+
 \section{Navigating Through a File in Python}
 
 \begin{frame}{File structure VS Python structure}
@@ -429,16 +477,112 @@
     \end{pythoncode}
 \end{frame}
 
+\begin{frame}{Some Facts}
+    \begin{block}{}
+        \begin{itemize}
+            \item You will likely ALWAYS find an issue when handling a file
+            \item This is especially true if you are parsing it yourself
+            \item Python data structures can be very confusing, but you get used to it
+            \item Handling a file might not always be hard, but it will ALWAYS takes time
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{File Issue Handling}
+    \begin{pythoncode}
+    file = open_file("my_file.txt")
+    \end{pythoncode}
+    \begin{CLI}
+        Traceback (most recent call last): \\
+    File "/home/documents/files/How many? (Python).py", line 9, in $<$module$>$ \\
+        fileScan= open(fileName, 'r')  \#Opens file \\
+    FileNotFoundError: [Errno 2] No such file or directory: 'my\_file.txt' \\
+    \end{CLI}
+    \vfill
+    \begin{pythoncode}
+    write_file("my_file.txt",content)
+    \end{pythoncode}
+    \begin{CLI}
+        [Errno 13] Permission denied: 'file.txt' \\
+    \end{CLI}
+\end{frame}
+
+\begin{frame}[fragile]{File Parsing is HARD}
+    \begin{pythoncode}
+    content = """"
+    name,username,id,description
+    toto,toto78,123,his name is toto
+    titi,titati,456,he likes cheese
+    """ # this is a csv file structure
+
+    structured = content.split("\n") # separate each line
+    structured = [i.split(",") for i in structured]
+    \end{pythoncode}
+    \vfill
+    \begin{block}{What happens if...}
+        \begin{itemize}
+            \item I have commas in my content ?
+            \item I use more than one delimiter ?
+            \item I have empty lines ?
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Python Data Structure Confusions}
+    \begin{pythoncode}
+    data = open_json("recipes.json")
+
+    print(data[0]["ingredients"][1][1])
+    print(data[0]["nutrients"]["calories"][2])
+    # ...
+    \end{pythoncode}
+    \vfill
+    \begin{block}{Again...}
+        \begin{itemize}
+            \item Take time to understand the structure
+            \item Process step by step
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{exoframe}
+    \begin{center}
+        \Large
+        It took me 1h30 - 2h do to the next TD. \\
+        I'm very used to handling files in python. \\
+        \vspace{10pt}
+        Don't overdo it, do what you can !
+    \end{center}
+\end{exoframe}
 
 
-%exercises:
-% open txt/csv/csv_delimiters/json formats
-% edit each of these formats by adding things in them
-% deleting things in them
-% make a loop on each value of file
-% open conll and convert it to json
-% convert json to conll
-% open a parquet file
-% extract an archive
+\begin{frame}{Doggy bag}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{File handling}
+            \begin{itemize}
+                \item Open and write a file
+                \item Encoding and pathing
+                \item String parsing
+                \item Dedicated libraries
+            \end{itemize}
+        \end{block}
+        \begin{block}{File navigation}
+            \begin{itemize}
+                \item File VS python structures
+                \item Common errors
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
+\end{frame}
 
 \end{document}
+
+% extract archive
+% list every file in folder => glob
+% 
