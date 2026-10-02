@@ -224,16 +224,15 @@
 \end{frame}
 
 \begin{exoframe}
-    \begin{block}{Describe the following file formats:}
+    \begin{block}{Describe the following file formats: \hfill \only<2->{process as...}}
         \begin{itemize} \color{white}
-            \item text file format
-            \item comma separated values
-            \item tabulation separated values
-            \item javascript object notation
-            \item parquet file format
+            \item Text file format \hfill \only<2->{$\Rightarrow$ A string or a list}
+            \item Comma separated values \hfill \only<2->{$\Rightarrow$ A list and/or a dictionary}
+            \item Extensible Markup Language \hfill \only<2->{$\Rightarrow$ A list and/or a dictionary}
+            \item Javascript Object Notation \hfill \only<2->{$\Rightarrow$ A list and/or a dictionary}
         \end{itemize}
     \end{block}
-    \vspace{10pt}
+    \vfill
     \begin{center}
         \Large
         More precisely, describe their data structure \\ and how you would process them.
@@ -317,6 +316,13 @@
     \end{block}
 \end{frame}
 
+\begin{exoframe}
+    \begin{center}
+        \Large
+        What if I want to open a file with a specific data structure ?
+    \end{center}
+\end{exoframe}
+
 \begin{frame}{String Parsing}
     \begin{center}
         \Large
@@ -355,6 +361,13 @@
     \end{pythoncode}
 \end{frame}
 
+\begin{exoframe}
+    \begin{center}
+        \Large
+        What if my file is has a data structure that I can't parse easily ?
+    \end{center}
+\end{exoframe}
+
 \begin{frame}[fragile]{Another Example (.parquet)}
     \begin{block}{Validation file of the PICO-corpus\footnote{\url{https://huggingface.co/datasets/cuevascarlos/PICO-breast-cancer}} in Codium text editor}    
         \begin{figure}
@@ -378,10 +391,10 @@
     % \end{center}
     \begin{block}{Some examples of dedicated libraries}
         \begin{itemize}
-            \item json: json, ujson, orjson, rapidjson 
-            \item csv: csv, pandas, polars, pyarrow, dask 
-            \item parquet: parquet, datasets, pyarrow 
-            \item xml: xml, lxml, expat, minidom 
+            \item \textbf{json}: json, ujson, orjson, rapidjson 
+            \item \textbf{csv}: csv, pandas, polars, pyarrow, dask 
+            \item \textbf{parquet}: parquet, datasets, pyarrow 
+            \item \textbf{xml}: xml, lxml, expat, minidom 
         \end{itemize}
     \end{block}
     \begin{block}{Disadvantages}
@@ -392,7 +405,34 @@
     \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Common Practices}
+\section{Tips and Tricks}
+
+\begin{frame}{Managing Files and Folders}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.7\columnwidth]{../../../FIGURES/python/folder_tree.png}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{You need to know}
+            \begin{itemize}
+                \item Where your script is
+                \item Where your data is
+                \item How to access them without GUI
+            \end{itemize}
+        \end{block}
+        \vfill
+        \begin{block}{Why it is important}
+            \begin{itemize}
+                \item Massive gain of time
+                \item - MASSIVE - gain of time
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Folder Management}
     \begin{pythoncode}
     # Create a folder
     if not os.path.exists("my_path"):
@@ -403,9 +443,26 @@
     if not os.path.exists("my_folder/my_path"):
         os.makedirs("my_folder/my_path")
 
-    # Get all paths of files in a folder
+    # Delete a file or a folder
+    os.remove("path_to_file")
+    os.rmdir("path_to_folder")
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{Folder Inspection}
+    \begin{pythoncode}
+    # Get all paths of files in a folder with os
+    import os
+    path_list = os.listdir("path")
+
+    # Get all paths of files in a folder with glob
     import glob
-    path_list = [path for path in glob.glob("my_path/*.txt")]
+    path_list = [path for path in glob.glob("path/*.txt")]
+
+    # Get all paths of files in folder and subfolders
+    import os
+    for path, subdirs, files in os.walk("path"):
+        print(path,subdirs,files)
     \end{pythoncode}
 \end{frame}
 
@@ -414,6 +471,7 @@
     import glob
 
     for path in glob.glob("my_path/*.txt"):
+        print(path)
         # process the file
     \end{pythoncode}
     \vfill
@@ -426,14 +484,16 @@
     \end{block}
 \end{frame}
 
-\section{Navigating Through a File in Python}
-
 \begin{frame}{File structure VS Python structure}
     \begin{block}{}
-        \begin{tabular}{rllr}
-            Read mode: & \wordbox{file content structure} & $\Rightarrow$ & \wordbox{Python data structure} \\
-            Write mode: & \wordbox{Python data structure} & $\Rightarrow$ & \wordbox{file content structure} \\
-        \end{tabular}
+        \begin{table}
+            \centering
+            \renewcommand{\arraystretch}{1.5} 
+            \begin{tabular}{rllr}
+                Read mode: & \wordbox{file content structure} & $\Rightarrow$ & \wordbox{Python data structure} \\
+                Write mode: & \wordbox{Python data structure} & $\Rightarrow$ & \wordbox{file content structure} \\
+            \end{tabular}
+        \end{table}
     \end{block}
     \begin{block}{Python data structure}
         \begin{itemize}
@@ -549,9 +609,9 @@
     \begin{block}{}
         \begin{itemize} \color{white}
             \item Go here: \url{https://www.gutenberg.org/}
-            \item Download a book in plain text
-            \item Try to open it in Python
-            \item Remove every "e" from it and save it back
+            \item Download three book in plain text and save them in a folder
+            \item Try to open them in Python (the script should not be in the same folder)
+            \item Remove every "e" from them and save them back
         \end{itemize}
     \end{block}
 \end{exoframe}
