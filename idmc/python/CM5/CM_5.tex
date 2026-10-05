@@ -111,12 +111,12 @@
 \begin{frame}{What is a File ?}
     \begin{block}{A file...}
         \begin{itemize}
-            \item is a document which stores information
-            \item can be hand-made or numeric (or even hand-made, then numerized)
-            \item may have some sort of structure to respect when writing or reading it
+            \item Is a document which stores information
+            \item Can be hand-made or numeric (or even hand-made, then numerized)
+            \item May have some sort of structure to respect when writing or reading it
         \end{itemize}
     \end{block}
-    \begin{block}{Core components of a file}
+    \begin{block}{Core components of a numeric file}
         \begin{itemize}
             \item File format
             \item File extension
@@ -223,23 +223,30 @@
     \end{center}
 \end{frame}
 
-\begin{exoframe}
-    \begin{block}{Describe the following file formats: \hfill \only<2->{process as...}}
-        \begin{itemize} \color{white}
-            \item Text file format \hfill \only<2->{$\Rightarrow$ A string or a list}
-            \item Comma separated values \hfill \only<2->{$\Rightarrow$ A list and/or a dictionary}
-            \item Extensible Markup Language \hfill \only<2->{$\Rightarrow$ A list and/or a dictionary}
-            \item Javascript Object Notation \hfill \only<2->{$\Rightarrow$ A list and/or a dictionary}
-        \end{itemize}
-    \end{block}
-    \vfill
-    \begin{center}
-        \Large
-        More precisely, describe their data structure \\ and how you would process them.
-    \end{center}
-\end{exoframe}
+% \begin{exoframe}
+%     \begin{block}{Here are some file formats: \hfill \only<2->{Processed as...}}
+%         \begin{itemize} \color{white}
+%             \item Text file format \hfill \only<2->{$\Rightarrow$ A string or a list}
+%             \item Comma separated values \hfill \only<2->{$\Rightarrow$ A list and/or a dictionary}
+%             \item Extensible Markup Language \hfill \only<2->{$\Rightarrow$ A list and/or a dictionary}
+%             \item Javascript Object Notation \hfill \only<2->{$\Rightarrow$ A list and/or a dictionary}
+%         \end{itemize}
+%     \end{block}
+%     \vfill
+%     \begin{center}
+%         \Large
+%         Describe their data structure and how you would handle them.
+%     \end{center}
+% \end{exoframe}
 
 \section{Handling a File in Python}
+
+\begin{exoframe}
+    \begin{center}
+        \Large
+        How do I open a file in python ?
+    \end{center}
+\end{exoframe}
 
 \begin{frame}[fragile]{File Opening and Writing (1/2)}
     \begin{pythoncode}
@@ -405,7 +412,67 @@
     \end{block}
 \end{frame}
 
-\section{Tips and Tricks}
+\begin{exoframe}
+    \begin{center}
+        \Large
+        I opened a file in Python. What is the next step ?
+    \end{center}
+\end{exoframe}
+
+\begin{frame}{File structure VS Python structure}
+    \begin{block}{}
+        \begin{table}
+            \centering
+            \renewcommand{\arraystretch}{1.5} 
+            \begin{tabular}{rllr}
+                Read mode: & \wordbox{file content structure} & $\Rightarrow$ & \wordbox{Python data structure} \\
+                Write mode: & \wordbox{Python data structure} & $\Rightarrow$ & \wordbox{file content structure} \\
+            \end{tabular}
+        \end{table}
+    \end{block}
+    \begin{block}{Python data structure}
+        \begin{itemize}
+            \item Native structures: lists, tuples, dictionaries, sets
+            \item Custom structures: pandas.Series, array, etc 
+        \end{itemize}
+    \end{block}
+    \begin{center}
+        \Large
+        In Python, most data structures works like \\ a blending of lists and dictionaries.
+    \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{An Example (.csv)}
+    \begin{pythoncode}
+    # lets take structured:
+    # [["name","username","id","description"],
+    #  ["toto","toto78","123","his name is toto"],
+    #  ["titi","titato","456","he likes cheese"]]
+
+    # get the username of the first element
+    username_1 = structured[1][1]
+
+    # print every usernames
+    for i in structured[1:]:
+        print(i[1])
+    \end{pythoncode}
+\end{frame}
+
+\begin{frame}[fragile]{Another Example (.parquet)}
+    \begin{pythoncode}
+    import datasets
+    datasets = load_dataset(
+        "cuevascarlos/PICO-breast-cancer", "Default_split-v2")
+    
+    validation = datasets["validation"]
+    validation_ids = validation["ids"]
+
+    for i in validation_ids:
+        print(i)
+    \end{pythoncode}
+\end{frame}
+
+\section{File Management}
 
 \begin{frame}{Managing Files and Folders}
     \begin{minipage}{0.45\columnwidth}
@@ -415,20 +482,10 @@
     \end{minipage}
     \hfill
     \begin{minipage}{0.45\columnwidth}
-        \begin{block}{You need to know}
-            \begin{itemize}
-                \item Where your script is
-                \item Where your data is
-                \item How to access them without GUI
-            \end{itemize}
-        \end{block}
-        \vfill
-        \begin{block}{Why it is important}
-            \begin{itemize}
-                \item Massive gain of time
-                \item - MASSIVE - gain of time
-            \end{itemize}
-        \end{block}
+        \begin{itemize}
+            \item How do I access toto.txt with script1 ?
+            \item How can I process each file in Data ?
+        \end{itemize}
     \end{minipage}
 \end{frame}
 
@@ -468,76 +525,27 @@
 
 \begin{frame}[fragile]{Looping Through Files}
     \begin{pythoncode}
+    # I use glob, but other libraries can do it ! E.g: os
     import glob
 
+    # Open each txt file within a folder through a loop
     for path in glob.glob("my_path/*.txt"):
         print(path)
         # process the file
-    \end{pythoncode}
-    \vfill
-    \begin{block}{General tips}
-        \begin{itemize}
-            \item Don't overwrite files - make copies !
-            \item Always make sure the file is well-structured first
-            \item Use \wordbox{try} and \wordbox{expect} to handle possible errors
-        \end{itemize}
-    \end{block}
-\end{frame}
 
-\begin{frame}{File structure VS Python structure}
-    \begin{block}{}
-        \begin{table}
-            \centering
-            \renewcommand{\arraystretch}{1.5} 
-            \begin{tabular}{rllr}
-                Read mode: & \wordbox{file content structure} & $\Rightarrow$ & \wordbox{Python data structure} \\
-                Write mode: & \wordbox{Python data structure} & $\Rightarrow$ & \wordbox{file content structure} \\
-            \end{tabular}
-        \end{table}
-    \end{block}
-    \begin{block}{Python data structure}
-        \begin{itemize}
-            \item Native structures: lists, tuples, dictionaries, sets
-            \item Custom structures: pandas.Series, array, etc 
-        \end{itemize}
-    \end{block}
-    \begin{center}
-        \Large
-        In Python, most data structures works like \\ a blending of lists and dictionaries.
-    \end{center}
-\end{frame}
+    # You can also make a list of path to each file
+    file_list = [path for path in glob.glob("my_path/*.txt")]
 
-\begin{frame}[fragile]{An Example (.csv)}
-    \begin{pythoncode}
-    # lets take structured
-    # [["name","username","id","description"],
-    #  ["toto","toto78","123","his name is toto"],
-    #  ["titi","titato","456","he likes cheese"]]
-
-    # get the username of the first element
-    username_1 = structured[1][1]
-
-    # print every usernames
-    for i in structured[1:]:
-        print(i[1])
+    # If you want to inspect subfolders too
+    for path in glob.glob("my_path/**/*.txt"):
+        print(path)
+        # process the file
     \end{pythoncode}
 \end{frame}
 
-\begin{frame}[fragile]{Another Example (.parquet)}
-    \begin{pythoncode}
-    import datasets
-    datasets = load_dataset(
-        "cuevascarlos/PICO-breast-cancer", "Default_split-v2")
-    
-    validation = datasets["validation"]
-    validation_ids = validation["ids"]
+\section{Common Mistakes}
 
-    for i in validation_ids:
-        print(i)
-    \end{pythoncode}
-\end{frame}
-
-\begin{frame}{Some Facts}
+\begin{frame}{Common Mistakes}
     \begin{block}{}
         \begin{itemize}
             \item You will likely ALWAYS find an issue when handling a file
@@ -605,6 +613,16 @@
     \end{block}
 \end{frame}
 
+\begin{frame}{Tips}
+    \begin{block}{General tips}
+        \begin{itemize}
+            \item Don't overwrite files - make copies !
+            \item Always make sure the file is well-structured first
+            \item Use \wordbox{try} and \wordbox{expect} to handle possible errors
+        \end{itemize}
+    \end{block}
+\end{frame}
+
 \begin{exoframe}{Exercise}
     \begin{block}{}
         \begin{itemize} \color{white}
@@ -616,15 +634,15 @@
     \end{block}
 \end{exoframe}
 
-\begin{exoframe}
-    \begin{center}
-        \Large
-        It took me 1h30 - 2h do to the next TD. \\
-        I'm very used to handling files in python. \\
-        \vspace{10pt}
-        Don't overdo it, do what you can !
-    \end{center}
-\end{exoframe}
+% \begin{exoframe}
+%     \begin{center}
+%         \Large
+%         It took me 1h30 - 2h do to the next TD. \\
+%         I'm very used to handling files in python. \\
+%         \vspace{10pt}
+%         Don't overdo it, do what you can !
+%     \end{center}
+% \end{exoframe}
 
 \begin{frame}{Doggy bag}
     \begin{minipage}{0.45\columnwidth}
