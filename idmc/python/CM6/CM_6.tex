@@ -160,6 +160,27 @@
     \end{block}
 \end{frame}
 
+\begin{frame}{Installing a List of Libraries}
+        \begin{block}{With pip}
+        \vspace{5pt}
+        \begin{CLI}
+            pip install -r requirements.txt
+        \end{CLI}
+    \end{block}
+    \begin{block}{With uv}
+        \vspace{5pt}
+        \begin{CLI}
+            uv add -r requirements.txt
+        \end{CLI}
+    \end{block}
+    \begin{block}{With conda}
+        \vspace{5pt}
+        \begin{CLI}
+            conda create --file environment.yml
+        \end{CLI}
+    \end{block}
+\end{frame}
+
 \section{Environments}
 
 \begin{frame}{Common Issues in Python}
@@ -203,29 +224,53 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}{How to Create a venv ?}
-    \vspace{-5pt}
-    \begin{block}{With Python venv}
+\begin{frame}{Venv Cheatsheet (python + pip)}
+    \begin{block}{How to create a venv}
         \vspace{5pt}
         \begin{CLI}
             $>$ python -m venv venv\_name \\
             $>$ source venv\_name/bin/activate \\
         \end{CLI}
     \end{block}
-    \vfill
-    \begin{block}{With uv}
+    \begin{block}{How to use jupyter-notebook with this venv}
         \vspace{5pt}
-            \begin{CLI}
+        \begin{CLI}
+            $>$ pip install --user ipykernel \\
+            $>$ python -m ipykernel install --user \\
+        \end{CLI}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Venv Cheatsheet (uv)}
+    \begin{block}{How to create a venv}
+        \vspace{5pt}
+        \begin{CLI}
             $>$ cd my\_project \\ 
             $>$ uv init \\
-            \end{CLI}
+        \end{CLI}
     \end{block}
-    \vfill
-    \begin{block}{With conda}
+    \begin{block}{How to use jupyter-notebook with this venv}
+        \vspace{5pt}
+        \begin{CLI}
+            $>$ uv add jupyter \\ 
+            $>$ uv run jupyter notebook \\
+        \end{CLI}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Venv Cheatsheet (conda)}
+    \begin{block}{How to create a venv}
         \vspace{5pt}
         \begin{CLI}
             $>$ conda create --name venv\_name \\
             $>$ conda activate venv\_name \\
+        \end{CLI}
+    \end{block}
+    \begin{block}{How to use jupyter-notebook with this venv}
+        \vspace{5pt}
+        \begin{CLI}
+            $>$ conda install jupyter \\
+            $>$ jupyter notebook \\
         \end{CLI}
     \end{block}
 \end{frame}
