@@ -81,12 +81,33 @@
 \end{exoframe}
 
 \begin{frame}{Last Lecture Doggy bag}
-
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{File handling}
+            \begin{itemize}
+                \item Open and write a file
+                \item Encoding and pathing
+                \item String parsing
+                \item Dedicated libraries
+            \end{itemize}
+        \end{block}
+        \begin{block}{File navigation}
+            \begin{itemize}
+                \item File VS python structures
+                \item Common errors
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
 \end{frame}
 
 \section{Libraries}
 
-\begin{frame}[fragile]{What is a Library}
+\begin{frame}[fragile]{What is a Library ?}
     \begin{pythoncode}
     import os
     import json
@@ -176,9 +197,38 @@
     \begin{block}{With conda}
         \vspace{5pt}
         \begin{CLI}
-            conda create --file environment.yml
+            conda create -\nothing{}-file environment.yml
         \end{CLI}
     \end{block}
+\end{frame}
+
+\begin{exoframe}{}
+    \begin{center}
+        \Large
+        We will now overview 3 packages. \\
+        Download the jupyter-notebooks on Arche.
+    \end{center}
+\end{exoframe}
+
+\begin{frame}{Packages: Summary}
+    \begin{block}{Python has hundred of thousands of packages}
+        \begin{itemize}
+            \item We will not see them all in this lecture
+            \item You will not remember how to use each one of them
+        \end{itemize}
+    \end{block}
+    \begin{block}{Best practices}
+        \begin{itemize}
+            \item Get used to python package documentation and common usages
+            \item Do not hesitate to use forums and search engines \textbf{($\ne$ generative AI !!!)}
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{center}
+        \Large
+        You will master Python by developping good habits. \\
+        Number one good habit = knowing how to find solutions.
+    \end{center}
 \end{frame}
 
 \section{Environments}
@@ -235,8 +285,8 @@
     \begin{block}{How to use jupyter-notebook with this venv}
         \vspace{5pt}
         \begin{CLI}
-            $>$ pip install --user ipykernel \\
-            $>$ python -m ipykernel install --user \\
+            $>$ pip install -\nothing{}-user ipykernel \\
+            $>$ python -m ipykernel install -\nothing{}-user \\
         \end{CLI}
     \end{block}
 \end{frame}
@@ -262,7 +312,7 @@
     \begin{block}{How to create a venv}
         \vspace{5pt}
         \begin{CLI}
-            $>$ conda create --name venv\_name \\
+            $>$ conda create -\nothing{}-name venv\_name \\
             $>$ conda activate venv\_name \\
         \end{CLI}
     \end{block}
@@ -278,7 +328,7 @@
 \begin{frame}{Using the Default environment is BAD}
     \begin{block}{Library compatibilities issues}
         \begin{itemize}
-            \item Library A and B have a compatibility issue
+            \item Two libraries have common dependencies - but in different versions
             \item You WILL end up re-installing everything
         \end{itemize}
     \end{block}
@@ -297,10 +347,93 @@
 
 \section{Modules}
 
-%also bad practices => variables in modules is a big no, you want functions or classes, callable items only !
+\begin{frame}[fragile]{What is a Module ?}
+    \begin{pythoncode}
+    from script_1 import function_1, function_2
+    from src.others.script_2 import *
+    import script_3
+    import script_3 as sc
+
+    function_1()
+    function_2()
+    script_3.function_3()
+    sc.function_3()
+    \end{pythoncode}
+    \vfill
+    \begin{block}{Modules help you to structure your projects}
+        \begin{itemize}
+            \item They must be a python file (.py extension)
+            \item They should only contain functions !
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{How to use Modules ?}
+    \begin{minipage}{0.40\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.7\columnwidth]{../../../FIGURES/python/folder_tree_modules.png}
+        \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.50\columnwidth}
+        \begin{block}{Good practices}
+            \begin{itemize}
+                \item Keep modules short and specific
+                \item Place modules in a child folder
+                \item Add \wordbox{\_\_init\_\_.py} in said child folder
+                \vspace{10pt}
+                \item Avoid circular module imports
+                \item Import everything in a "main" script
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Some Questions}
+    \begin{block}{What happens if...}
+        \begin{itemize}
+            \item I import script1 in script2 and script2 in script1 ?
+            \item I import script1, which contains package imports ?
+            \item I import script1, which contains variable names ?
+            \vspace{10pt}
+            \item I want to access toto.txt from script1 ?
+            \item I want to access toto.txt from script1 from main ?
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{center}
+        \Large
+        Always be careful with paths when using modules !
+    \end{center}
+\end{frame}
+
+\begin{frame}{Doggy bag}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Libraries}
+            \begin{itemize}
+                \item The toolboxes of python
+                \item pandas, sklearn and matplotlib
+            \end{itemize}
+        \end{block}
+        \begin{block}{Virtual env}
+            \begin{itemize}
+                \item Use them !
+                \item Global venv = BAD
+            \end{itemize}
+        \end{block}
+        \begin{block}{Modules}
+            \begin{itemize}
+                \item Snippets of code
+                \item Better code structure
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
+\end{frame}
 
 \end{document}
-
-% pandas
-% scikit learn
-% matplotlib
