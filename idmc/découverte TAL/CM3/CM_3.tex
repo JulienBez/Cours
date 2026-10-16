@@ -165,6 +165,7 @@
 
 \begin{frame}{Niveaux d'analyse linguistique}
     \begin{block}{5 grands niveaux d'analyse}
+        \pause
         \begin{itemize}
             \item Phonologie
             \item Morphologie
@@ -182,21 +183,32 @@
 \end{frame}
 
 \begin{frame}{Phonologie}
-    \begin{block}{Objectif(s)}
-        \begin{itemize}
-            \item Étudie l'organisation des sons
-            \item Unité minimale~: le phonème
-        \end{itemize}
-    \end{block}
-    \begin{block}{Exemples}
-        \begin{itemize}
-            \item J'en veux plus ! 
-            \item J'ai égaré mes fils...
-        \end{itemize}
-    \end{block}
+    \pause
+    \begin{minipage}{0.4\columnwidth}
+        \begin{block}{Objectif(s)}
+            \begin{itemize}
+                \item Étudie l'organisation des sons
+                \item Unité minimale~: le phonème
+            \end{itemize}
+        \end{block}
+        \begin{block}{Exemples}
+            \begin{itemize}
+                \item J'en veux plus ! 
+                \item J'ai égaré mes fils...
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.55\columnwidth}
+        \begin{figure}
+            \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/phonemes.png}
+            \caption*{Source~: \url{https://www.digischool.fr/cours/les-phonemes-du-francais-2}}
+        \end{figure}
+    \end{minipage}
 \end{frame}
 
 \begin{frame}{Morphologie}
+    \pause
     \begin{block}{Objectif(s)}
         \begin{itemize}
             \item Étudie la forme des mots
@@ -238,6 +250,7 @@
 \end{frame}
 
 \begin{frame}{Syntaxe}
+    \pause
     \begin{block}{Objectif(s)}
         \begin{itemize}
             \item Étudie les combinaisons de mots (phrases, syntagmes, paragraphes, etc)
@@ -264,6 +277,7 @@
 \end{frame}
 
 \begin{frame}{Sémantique}
+    \pause
     \begin{block}{Objectif(s)}
         \begin{itemize}
             \item Étudie le sens d'un mot / d'une combinaison de mots
@@ -284,6 +298,7 @@
 \end{frame}
 
 \begin{frame}{Pragmatique}
+    \pause
     \begin{block}{Objectif(s)}
         \begin{itemize}
             \item Étudie le contexte d'un mot / d'une combinaison de mots
@@ -321,7 +336,9 @@
     \vspace{10pt}
     \begin{center}
         \Large
+        \pause
         Modéliser la langue permet de mieux gérer les ambiguïtés. \\
+        \pause
         Techniques du TAL $\approx$ applications de ces analyses.
     \end{center}
 \end{frame}
@@ -341,12 +358,14 @@
 \section{Techniques du TAL}
 
 \begin{frame}{Segmentation}
+    \pause
     \begin{block}{Objectif(s)}
         \begin{itemize}
             \item Découper un énoncé en phrases / paragraphes
             \item Permet une analyse plus fine de l'énoncé
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Exemples}
         \begin{minipage}{0.45\columnwidth}
             \begin{tabular}{|p{5cm}|}
@@ -369,6 +388,7 @@
 \end{frame}
 
 \begin{frame}{Tokenisation}
+    \pause
     \begin{block}{Objectif(s)}
         \begin{itemize}
             \item Découper un énoncé en tokens
@@ -376,38 +396,48 @@
             \item Permet de traiter chaque mot indépendamment
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Exemples}
         \begin{itemize}
+            \pause
             \item \wordbox{Les} \wordbox{étudiants} \wordbox{mangent} \wordbox{un} \wordbox{kebab}
+            \pause
             \item \wordbox{pomme de terre} ou \wordbox{pomme} \wordbox{de} \wordbox{terre} ?
+            \pause
             \item \wordbox{tire-bouchon} ou \wordbox{tire} \wordbox{-} \wordbox{bouchon} ?
+            \pause
             \item \wordbox{pierre} \wordbox{qui} \wordbox{roule} \wordbox{n'}\wordbox{amasse} \wordbox{pas} \wordbox{mousse} ?
         \end{itemize}
     \end{block}
 \end{frame}
 
 \begin{frame}{Lemmatisation}
+    \pause
     \begin{block}{Objectif(s)}
         \begin{itemize}
             \item Obtenir la forme canonique (lemme) d'un mot
             \item Permet de "neutraliser" les flexions et variantes lors de l'analyse
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Exemples}
         \begin{itemize}
             \item Verbe~: suis, es, est $\Rightarrow$ être
             \item Nom~: maison, maisonnette, maisons $\Rightarrow$ maison
         \end{itemize}
     \end{block}
-    \vspace{10pt}
+    \vfill
+    \pause
     \begin{center}
         {\Large
         La lemmatisation n'agrège que des variantes flexionnelles.} \\
+        \pause
         chevaux $\Rightarrow$ cheval | chevalier $\ne$ cheval
     \end{center}
 \end{frame}
 
 \begin{frame}{Racinisation}
+    \pause
     \begin{block}{Objectif(s)}
         \begin{itemize}
             \item Obtenir la racine d'un mot (sans flexion et suffixe)
@@ -415,21 +445,25 @@
             \item Permet de "neutraliser" les flexions et variantes lors de l'analyse
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Exemples}
         \begin{itemize}
             \item cheval, chevaux, chevalier, chevalerie $\Rightarrow$ cheva
             \item vais, vas, va, allons, allez, vont $\ne$ aller
         \end{itemize}
     \end{block}
-    \vspace{10pt}
+    \vfill
+    \pause
     \begin{center}
         {\Large
         Plus rapide à mettre en place mais moins précise.} \\
+        \pause
         avions (verbe) vs avions (nom)
     \end{center}
 \end{frame}
 
 \begin{frame}{Étiquetage morphosyntaxique}
+    \pause
     \begin{minipage}{0.45\columnwidth}
         \begin{figure}
             \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/pos_tagging.png}
@@ -465,15 +499,10 @@
 
 \begin{frame}{Limites}
     \begin{block}{Les techniques du TAL sont limitées}
-        % \begin{itemize}
-        %     \item Des ambiguïtés persistent
-        %     \item Traiter une langue $\ne$ traiter toutes les langues
-        %     \item JAMAIS parfaites (90~\% d'annotations correctes = environs une faute par phrase)
-        % \end{itemize}
         \begin{itemize}
             \item Des ambiguïtés persistent toujours
             \item Traiter une langue ne revient pas à traiter toutes les langues
-            \item Les techniques du TAL ne sont pas parfaites
+            \item Les techniques du TAL ne sont JAMAIS parfaites
         \end{itemize}
     \end{block}
     \begin{block}{Des inégalités existent}
