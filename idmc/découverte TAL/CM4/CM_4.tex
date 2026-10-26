@@ -135,12 +135,16 @@
     \pause
     \begin{block}{Deux manières pour rechercher des informations}
         \begin{itemize}
+            \pause
             \item Recherche en extension~: lister toutes les formes attendues
             \begin{itemize}
+                \pause
                 \item Sam, Gamegie, Bilbon, Frodon
             \end{itemize}
+            \pause
             \item Recherche en intension~: définir des règles pour identifier les formes attendues
             \begin{itemize}
+                \pause
                 \item Commence par une majuscule
             \end{itemize}
         \end{itemize}
@@ -153,15 +157,18 @@
             En informatique, une expression régulière est une chaîne de caractères qui décrit, selon une syntaxe précise, un ensemble de chaînes de caractères possibles. Les expressions régulières sont également appelées \textbf{regex}.
         \end{tcolorbox}
     \end{block}
+    \pause
     \begin{center}
         \Large
         Les regex permettent d'identifier des motifs dans des textes. \\
+        \pause
         Motif~: structure formelle et régulière.
     \end{center}
 \end{frame}
 
 \begin{frame}{Qu'appelle-t-on un motif ?}
     \begin{block}{Motifs institutionnalisés}
+        \pause
         \begin{itemize}
             \item Urls
             \item Adresses mails
@@ -169,12 +176,14 @@
             \item Formats d'image (.png, .svg, etc)
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Motifs langagiers}
         \begin{itemize}
             \item Exemple~: trouver les expressions de la forme "prendre la X"
             \item Ce qu'on cherche~: prendre la parole, prendre la porte, etc 
         \end{itemize}
     \end{block}
+    \pause
     \begin{center}
         \Large
         Une regex permet de prendre en compte toutes \\ 
@@ -198,18 +207,22 @@
 
 \begin{frame}{Solutions possibles}
     \begin{block}{Numéros de téléphone}
+        \pause
         \begin{itemize}
             \item 8 nombres, les deux premiers sont listables (01, 03, 06, 07, etc)
             \item Et pour ces numéros ? $\Rightarrow$ 01 01 23 45 67 || 01-01-23-45-67
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Adresses mails}
+        \pause
         \begin{itemize}
             \item une séquence + @ + une séquence + un suffixe (.com, .fr, etc)
             \item bezanconjulien@gmail.com || julien.bezancon@univ-lorraine.fr
             %\item bezancon@lisn.fr
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Avec des regex} %TODO : les améliorer
         \begin{itemize}
             \item Numéros~: ((\bs +33)|0)\bs d{9}
@@ -226,12 +239,14 @@
             \item "France 2" ne reconnait pas "France 3" ou "France2"
         \end{itemize}
     \end{block}
+    \pause
     \begin{block}{Des métacaractères existent}
         \begin{itemize}
             \item Les opérateurs %$\Rightarrow$ fournissent des instructions complexes
             \item les quantifieurs %$\Rightarrow$ indiquent le nombre de répétitions d'un caractère
         \end{itemize}
     \end{block}
+    \pause
     \begin{center}
         \Large
         Motif~: mélange de caractères et métacaractères. \\
@@ -373,15 +388,20 @@
 \begin{frame}{Limites}
     \begin{block}{Reprenons le dernier exercice}
         \begin{itemize}
+            \pause
             \item Identifiez tous les noms et prénoms
+            \pause
             \item Identifiez les séquences sujet/verbe/complément
+            \pause
             \item Identifiez les noms d'album de David Bowie
         \end{itemize}
     \end{block}
+    \pause
     \begin{center}
         \Large
         Les regex ne peuvent pas tout faire. \\
         Elles peuvent devenir dures à lire et comprendre. \\
+        \pause
         \vspace{10pt}
         $\hat{}$([a-z0-9\_\bs .-]+)@([\bs da-z\bs .-]+)\bs .([a-z\bs .]\{2,6\})\$
     \end{center}
