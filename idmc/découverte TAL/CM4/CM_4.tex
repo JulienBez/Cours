@@ -21,10 +21,10 @@
 \usepackage{tcolorbox}
 \usepackage[sort,authoryear]{natbib}
 
-\author{Julien Bezançon}
+\author{Julien Bezançon}%en enlevant les biais des modèles, vous avez pas peur qu'ils soient moins représentatifs du réel ?
 
 \title{Découverte du Traitement Automatique des Langues}
-\subtitle{Hors-série 1~: Les expressions régulières}
+\subtitle{CM 4~: Traiter et représenter des données langagières}
 
 \institute{julien.bezancon@univ-lorraine.fr / \url{https://julienbez.github.io}}
 
@@ -79,349 +79,480 @@
     \end{center}
 \end{exoframe}
 
-\begin{frame}{Références de ce cours}
-    \begin{itemize}
-        \item Gaël Lejeune (gael.lejeune@sorbonne-universite.fr)
-        \begin{itemize}
-            \item cours d'ingénierie des langues
-        \end{itemize}
-        \vspace{10pt}
-        \item Maxime Amblard (maxime.amblard@univ-lorraine.fr)
-        \begin{itemize}
-            \item cours de découverte du TAL
-        \end{itemize}
-        % \vspace{10pt}
-        % \item Julien Romero (julien.romero@telecom-sudparis.eu)
-        % \begin{itemize}
-        %     \item cours d'introduction au TAL
-        % \end{itemize}
-    \end{itemize}
+\begin{frame}{Doggy bag du dernier cours}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Analyse linguistique}
+            \begin{itemize}
+                \item Phonétique
+                \item Morphologique
+                \item Syntaxique
+                \item Sémantique 
+                \item Pragmatique
+            \end{itemize}
+        \end{block}
+        \begin{block}{Techniques du TAL}
+            \begin{itemize}
+                \item Segmentation
+                \item Tokenisation 
+                \item Lemmatisation, racinisation
+                \item Étiquetage morphosyntaxique
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
 \end{frame}
 
+\section{Représenter des données textuelles}
 
-% \begin{frame}{Un peu de contexte}
-%     % \begin{block}{Traitement de texte en TAL}
-%     %     \begin{itemize}
-%     %         \item Segmentation
-%     %         \item Tokenisation
-%     %         \item Lemmatisation (ou racinisation)
-%     %         \item Étiquetage morphosyntaxique
-%     %     \end{itemize}
-%     % \end{block}
-%     \begin{center}
-%         \Large
-%         Parfois, on a besoin d'accéder rapidement à l'information. \\
-%         Les techniques du TAL prennent du temps à mettre en place.
-%     \end{center}
-%     \vspace{10pt}
-%     \begin{block}{Exemple~: identifier...}
-%         \begin{itemize}
-%             \item des adresses mails
-%             \item des numéros de téléphone
-%             \item les mots se terminant par -able
-%             \item des formats d'image (.png, .svg, etc)
-%         \end{itemize}
-%     \end{block}
-% \end{frame}
+\begin{frame}{Rappel~: le langage selon une machine}
+    \begin{block}{Ce que "voit" une machine}
+        \begin{table}
+            \renewcommand{\arraystretch}{1.5}  
+            \raggedright
+            \begin{tabular}{|l|l|}
+                \hline
+                Séquence (caractères) & Êl síla erin lû e-govaned vîn \\
+                \hline
+            \end{tabular}
+        \end{table}   
+    \end{block}
+    \begin{block}{Ce qu'elle ne voit et/ou ne comprend pas}
+        \begin{table}
+            \renewcommand{\arraystretch}{1.5}  
+            \raggedright
+            \begin{tabular}{|l|l|}
+                \hline
+                Syntaxe (structure) & \fcolorbox{black}{red!20}{\fcolorbox{black}{red!20}{Êl} \fcolorbox{black}{red!20}{síla} \fcolorbox{black}{red!20}{erin}} \fcolorbox{black}{blue!20}{\fcolorbox{black}{blue!20}{lû} \fcolorbox{black}{blue!20}{e-govaned} \fcolorbox{black}{blue!20}{vîn}} \\
+                \hline
+                Signifié (sens) & Une étoile brille sur l'heure de notre rencontre \\
+                \hline
+                Prosodie (oralité) & \textit{$\varepsilon$:l si.la $\varepsilon$.rin lu: $\varepsilon$ go.va.n$\varepsilon$d vi:n} \\
+                \hline
+                Contexte & \textit{Vous êtes un hobbit saluant gracieusement un elfe} \\
+                \hline
+            \end{tabular}
+        \end{table}
+    \end{block}
+\end{frame}
 
-\section{Les expressions régulières}
+\begin{frame}{Limites des données textuelles}
+    \vfill
+    \begin{block}{Limites}
+        \begin{itemize}
+            \item Pas d'analyse sémantique entre les mots
+            \item Peu d'analyse relationnelle entre les mots
+            \item Les modèles statistiques ont besoin de données numériques
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{center}
+        \Large
+        Solution~: représenter différemment les mots ! 
+    \end{center}
+\end{frame}
 
-\begin{frame}{Un petit test}
-    \begin{block}{Identifiez tous les noms et prénoms dans ce texte\footnote{Le Seigneur des anneaux, Tome 1 : La Communauté de l'Anneau de J. R. R. Tolkien}}
-        \justify
-         << Le travail était principalement effectué par son plus jeune fils, Sam Gamegie. Tant le père que le fils étaient en relations très amicales avec Bilbon et Frodon. Ils habitaient sur la Colline même, au numéro 3 du Chemin des Trous-du-Talus, juste sous Cul-de-Sac. >>
+\begin{frame}{Processus de vectorisation des données}
+    \begin{figure}
+        \includegraphics[width=1\columnwidth]{../../../FIGURES/découverte_tal/vectorization.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Principes de la vectorisation}
+    \begin{block}{Objectifs}
+        \begin{itemize}
+            \item Transformer chaque mot en une suite de chiffres $\Rightarrow$ vecteur
+            \item Capturer des informations contextuelles pour chaque mot
+            \item Capturer des relations entre les mots
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{block}{Deux intuitions}
+        \begin{itemize}
+            \item Un mot = composé de plusieurs facteurs implicites
+            \begin{itemize}
+                \item chat = 10 (animal) + 5 (doux) - 10 (loyal)
+            \end{itemize}
+            \vspace{5pt}
+            \item Les vecteurs de deux mots proches devraient être proches
+            \begin{itemize}
+                \item "\textit{You shall know a word by the company it keeps}" (Firth, 1957)
+            \end{itemize}
+        \end{itemize}
+    \end{block}
+    % \vfill
+    % \begin{center}
+    %     \Large
+    %     Comment vectoriser du texte ? \\
+    %     Que contiennent les vecteurs créés ?
+    % \end{center}
+\end{frame}
+
+\begin{frame}{Comment vectoriser des données textuelles ?}
+    \begin{block}{On a besoin de deux choses}
+        \begin{itemize}
+            \item Des données textuelles (beaucoup de données)
+            \item Une méthode de vectorisation
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{block}{Données}
+        \begin{itemize}
+            \item Une série de livre ou d'articles
+            \item L'ensemble du contenu de wikipedia
+            \item L'intégralité des données stockées sur internet
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{center}
+        \Large
+        Dans la suite de ce cours~: les méthodes.
+    \end{center}
+\end{frame}
+
+\section{Vectorisation~: premiers pas}
+
+\begin{frame}{Représentation par matrices de co-occurrences}
+    \begin{block}{Permet d'obtenir un vecteur par mot/token}
+        \begin{itemize}
+            \item Phrase A~: les humains adorent les chiens
+            \item Phrase B~: le chien adore les os
+            %\item Phrase C~: les chiens adorent les humains
+        \end{itemize}
     \end{block}
     \vfill
     \pause
-    \begin{block}{Deux manières pour rechercher des informations}
-        \begin{itemize}
+    \begin{table}
+        \begin{tabular}{lp{0.6cm}p{1.2cm}p{1.2cm}p{1.2cm}p{0.6cm}p{1.2cm}p{1.2cm}l}
+                    & les & humains & adorent & chiens & le & chien & adore & os \\
+            \hline
+            \hline
             \pause
-            \item Recherche en extension~: lister toutes les formes attendues
-            \begin{itemize}
-                \pause
-                \item Sam, Gamegie, Bilbon, Frodon
-            \end{itemize}
+            les     & 0   & 2       & 2       & 2      & 1  & 1     & 1     & 1  \\
             \pause
-            \item Recherche en intension~: définir des règles pour identifier les formes attendues
-            \begin{itemize}
-                \pause
-                \item Commence par une majuscule
-            \end{itemize}
-        \end{itemize}
-    \end{block}
-\end{frame}
-
-\begin{frame}{Les expressions régulières}
-    \begin{block}{Définition de Wikipédia\footnote{\url{https://fr.wikipedia.org/wiki/Expression_régulière}}}
-        \begin{tcolorbox}
-            En informatique, une expression régulière est une chaîne de caractères qui décrit, selon une syntaxe précise, un ensemble de chaînes de caractères possibles. Les expressions régulières sont également appelées \textbf{regex}.
-        \end{tcolorbox}
-    \end{block}
-    \pause
-    \begin{center}
-        \Large
-        Les regex permettent d'identifier des motifs dans des textes. \\
-        \pause
-        Motif~: structure formelle et régulière.
-    \end{center}
-\end{frame}
-
-\begin{frame}{Qu'appelle-t-on un motif ?}
-    \begin{block}{Motifs institutionnalisés}
-        \pause
-        \begin{itemize}
-            \item Urls
-            \item Adresses mails
-            \item Numéros de téléphone
-            \item Formats d'image (.png, .svg, etc)
-        \end{itemize}
-    \end{block}
-    \pause
-    \begin{block}{Motifs langagiers}
-        \begin{itemize}
-            \item Exemple~: trouver les expressions de la forme "prendre la X"
-            \item Ce qu'on cherche~: prendre la parole, prendre la porte, etc 
-        \end{itemize}
-    \end{block}
-    \pause
-    \begin{center}
-        \Large
-        Une regex permet de prendre en compte toutes \\ 
-        les variantes possibles d'un motif.
-    \end{center}
-\end{frame}
-
-\begin{exoframe}{Exercice}
-    \begin{block}{Identifiez le motif de...}
-        \begin{itemize} \color{white}
-            \item Tous les numéros de téléphone français
-            \item Toutes les adresses mails
-        \end{itemize}
-    \end{block}
-    \vspace{15pt}
-    \begin{center}
-        \Large
-        Utilisez vos mots pour décrire ces motifs !
-    \end{center}
-\end{exoframe}
-
-\begin{frame}{Solutions possibles}
-    \begin{block}{Numéros de téléphone}
-        \pause
-        \begin{itemize}
-            \item 8 nombres, les deux premiers sont listables (01, 03, 06, 07, etc)
-            \item Et pour ces numéros ? $\Rightarrow$ 01 01 23 45 67 || 01-01-23-45-67
-        \end{itemize}
-    \end{block}
-    \pause
-    \begin{block}{Adresses mails}
-        \pause
-        \begin{itemize}
-            \item une séquence + @ + une séquence + un suffixe (.com, .fr, etc)
-            \item bezanconjulien@gmail.com || julien.bezancon@univ-lorraine.fr
-            %\item bezancon@lisn.fr
-        \end{itemize}
-    \end{block}
-    \pause
-    \begin{block}{Avec des regex} %TODO : les améliorer
-        \begin{itemize}
-            \item Numéros~: ((\bs +33)|0)\bs d{9}
-            \item Mails~: \nothing [\bs w\bs -\bs .]+@([\bs w-]+\bs .)+[\bs w-]\{2,4\}
-        \end{itemize}
-    \end{block}
-\end{frame}
-
-\begin{frame}{Quelques règles}
-    \begin{block}{Chaque caractère se reconnait lui-même (majuscules et espaces compris)}
-        \begin{itemize}
-            %\item les majuscules et les espaces comptent
-            \item "lapin" reconnait "lapin", mais pas "Lapin"
-            \item "France 2" ne reconnait pas "France 3" ou "France2"
-        \end{itemize}
-    \end{block}
-    \pause
-    \begin{block}{Des métacaractères existent}
-        \begin{itemize}
-            \item Les opérateurs %$\Rightarrow$ fournissent des instructions complexes
-            \item les quantifieurs %$\Rightarrow$ indiquent le nombre de répétitions d'un caractère
-        \end{itemize}
-    \end{block}
-    \pause
-    \begin{center}
-        \Large
-        Motif~: mélange de caractères et métacaractères. \\
-        France \bs d $\Rightarrow$ reconnait "France 2", "France 3", etc
-    \end{center}
-\end{frame}
-
-\section{Syntaxe d'une regex}
-
-\begin{frame}{Opérateurs}
-    \begin{table}
-        \renewcommand{\arraystretch}{1.5}  
-        \raggedright
-        \begin{tabular}{|c|p{10cm}|}
-            \hline
-            () & groupe de caractères \\
-            \hline
-            . & n'importe quel caractère \\
-            \hline
-            | & une expression OU une autre expression \\
-            \hline
-            $\hat{}$ & condition~: expression au début de ligne \\
-            \hline 
-            \$ & condition~: expression en fin de ligne \\
-            \hline
-            {[} {]} & n'importe quel caractère entre les crochets \\
-            \hline
-            {[} $\hat{}$ {]} & n'importe quel caractère qui n'est pas entre les crochets \\
-            \hline
+            humains & 2   & 0       & 1       & 1      & 0  & 0     & 0     & 0  \\
+            \pause
+            adorent & 2   & 1       & 0       & 1      & 0  & 0     & 0     & 0  \\
+            \pause
+            chiens  & 2   & 1       & 1       & 0      & 0  & 0     & 0     & 0  \\
+            \pause
+            le      & 1   & 0       & 0       & 0      & 0  & 1     & 1     & 1  \\
+            \pause
+            chien   & 1   & 0       & 0       & 0      & 1  & 0     & 1     & 1  \\
+            \pause
+            adore   & 1   & 0       & 0       & 0      & 1  & 1     & 0     & 1  \\
+            \pause
+            os      & 1   & 0       & 0       & 0      & 1  & 1     & 1     & 0  \\
         \end{tabular}
     \end{table}
 \end{frame}
 
-\begin{frame}{Quantifieurs}
+\begin{frame}{Représentation par sacs de mots}
+    \begin{block}{Permet d'obtenir un vecteur par document}
+        \begin{itemize}
+            \item Phrase A~: les humains adorent les chiens
+            \item Phrase B~: le chien adore les os
+            \item Phrase C~: les chiens adorent les humains
+        \end{itemize}
+    \end{block}
+    \vfill
+    \pause
     \begin{table}
-        \renewcommand{\arraystretch}{1.5}  
-        \raggedright
-        \begin{tabular}{|c|p{9.5cm}|}
+        \begin{tabular}{lp{0.6cm}p{1.2cm}p{1.2cm}p{1.2cm}p{0.6cm}p{1.2cm}p{1.2cm}l}
+                     & les & humains & adorent & chiens & le & chien & adore & os \\
             \hline
-            ? & une expression 0 ou 1 fois \\
             \hline
-            + & une expression 1 fois ou plus \\
-            \hline
-            * & une expression 0 fois ou plus \\
-            \hline
-            \{n\} & une expression exactement n fois \\
-            \hline
-            \{n,m\} & une expression entre n et m fois \\
-            \hline
-            \{n,\} & une expression au moins n fois \\
-            \hline
-            \{,m\} & une expression au plus m fois \\
-            \hline
+            \pause
+            Phrase A & 2   & 1       & 1       & 1      & 0  & 0     & 0     & 0  \\
+            \pause
+            Phrase B & 1   & 0       & 0       & 0      & 1  & 1     & 1     & 1  \\
+            \pause
+            Phrase C & 2   & 1       & 1       & 1      & 0  & 0     & 0     & 0  \\
         \end{tabular}
     \end{table}
-\end{frame}
-
-\begin{frame}{Classes de caractères}
-    \begin{table}
-        \renewcommand{\arraystretch}{1.5}  
-        \raggedright
-        \begin{tabular}{|c|p{9.8cm}|}
-            \hline
-            \bs w & caractères alphanumériques \\
-            \hline
-            \bs W & caractères autres que alphanumériques \\
-            \hline
-            \bs s & caractères d'espacement \\
-            \hline
-            \bs S & caractères autres que ceux 
-            d'espacement \\
-            \hline
-            \bs d & chiffres décimaux \\
-            \hline
-            \bs D & caractères autres que chiffres décimaux \\
-            \hline
-        \end{tabular}
-    \end{table}
-\end{frame}
-
-\begin{exoframe}{Exercices}
-    \begin{block}{Quelles expressions les regex suivantes peuvent-elles identifier ?}
-        \begin{itemize} \color{white}
-            \item lo+ng, (long)?, (lo)*ng
-            \item madame|monsieur, (madame)|(monsieur)
-            \item ver[ts], ver((re)|(ts)|(tige))
-            \item chaton\{1,3\}, (chaton)\{1,3\}, chaton\{1,\}
-        \end{itemize}
-    \end{block}
-    \begin{block}{Trouvez une regex pour exprimer chaque ensemble proposé}
-        \begin{itemize} \color{white}
-            \item Ensemble 1~: 1742479298, 987654321 , 6754, 42
-            \item Ensemble 2~: aaaa, bbbb, cccc, dddd, eeeee
-            \item Ensemble 3~: les conjugaisons de "aller" au présent
-            \item Ensemble 4~: tous les nombres décimaux
-        \end{itemize}
-    \end{block}
-\end{exoframe}
-
-\begin{frame}{Trucs et astuces}
-    \begin{block}{"\bs " permet de dé-spécialiser des caractères}
-        \begin{itemize}
-            \item \bs . $\Rightarrow$ un simple point
-            \item \bs ( $\Rightarrow$ une simple parenthèse
-        \end{itemize}
-    \end{block}
-    \begin{block}{"{[} {]}" peut s'utiliser d'une autre manière}
-        \begin{itemize}
-            \item {[}a-z{]} $\Rightarrow$ toutes les lettres de "a" à "z"
-            \item {[}A-Z{]} $\Rightarrow$ toutes les lettres de "A" à "Z"
-            \item {[}1-9{]} $\Rightarrow$ tous les chiffres de "1" à "9"
-        \end{itemize}
-    \end{block}
-\end{frame}
-
-\begin{exoframe}{Un exercice Rock'n'Roll (1/2)}
+    \vfill
+    \pause
     \begin{center}
-        \Large 
-        Allez sur le site suivant~: \url{https://regex101.com/} \\
-        Sinon, sortez vos crayons !
+        \Large
+        Quel est le problème ici ?
     \end{center}
+\end{frame}
+
+\begin{frame}{Un autre exemple}
     \begin{figure}
-        \includegraphics[width=0.7\columnwidth]{../../../FIGURES/découverte_tal/regex_bowie.png}
+        \includegraphics[width=0.8\columnwidth]{../../../FIGURES/découverte_tal/tannier_vectorisation.png}
+        \caption*{Source~: ETAL 2023, Xavier Tannier}
     \end{figure}
-\end{exoframe}
+\end{frame}
 
-\begin{exoframe}{Un exercice Rock'n'Roll (2/2)}
-    \begin{block}{Créez des regex afin de pouvoir identifier...}
-        \begin{itemize} \color{white}
-            \item tous les mots \only<2->{$\Rightarrow$ \bs w+}
-            \item toutes les années \only<2->{$\Rightarrow$ \bs d\{4\}}
-            \item toutes les phrases \only<2->{$\Rightarrow$ \bs s+|[~$\hat{}$~.~!~?]*[.~!~?]}
-            \item les dates complètes \only<2->{$\Rightarrow$ \bs d\{1,2\} \bs w* \bs d\{4\}}
-            \item "David" ou "Bowie" + le mot suivant \only<2->{$\Rightarrow$ (David)|(Bowie) ((\bs w)|([~$\hat{}$ \bs w\bs s]))*}
-        \end{itemize}
-    \end{block}
-\end{exoframe}
-
-\begin{frame}{Limites}
-    \begin{block}{Reprenons le dernier exercice}
+\begin{frame}{On peut "améliorer" les représentations (1/2)}
+    \begin{block}{Lemmatisation du texte}
         \begin{itemize}
-            \pause
-            \item Identifiez tous les noms et prénoms
-            \pause
-            \item Identifiez les séquences sujet/verbe/complément
-            \pause
-            \item Identifiez les noms d'album de David Bowie
+            \item Phrase A~: les humains adorent les chiens $\Rightarrow$ le humain adorer le chien
+            \item Phrase B~: le chien adore les os $\Rightarrow$ le chien adorer le os
+            \item Phrase C~: les chiens adorent les humains $\Rightarrow$ le chien adorer le humain
+        \end{itemize}        
+    \end{block}
+    \vfill
+    \pause
+    \begin{table}
+        \begin{tabular}{lp{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}l}
+                     & le & humain & adorer & chien & os \\
+            \hline
+            \hline
+            Phrase A & 2  & 1      & 1      & 1     & 0  \\
+            Phrase B & 2  & 0      & 1      & 1     & 1  \\
+            Phrase C & 2  & 1      & 1      & 1     & 0  \\
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Loi de Zipf}
+    \begin{figure} 
+        \includegraphics[width=0.5\columnwidth]{../../../FIGURES/découverte_tal/zipf_ulysses.png}
+        \caption*{Source~: wikipedia\footnote{\url{https://fr.wikipedia.org/wiki/Loi_de_Zipf}}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{On peut "améliorer" les représentations (2/2)}
+    \begin{block}{Intuitions}
+       \begin{itemize}
+            \item Certains mots sont sur-representés dans l'ensemble des textes d'une langue
+            \item De ce fait, ces mots portent moins d'informations sémantiques 
+            \item[$\Rightarrow$] \textbf{mots vides} (article, pronom, préposition, conjonction, etc)
+        \end{itemize} 
+    \end{block}
+    \vfill
+    \pause
+    \begin{table}
+        \begin{tabular}{lp{1.2cm}p{1.2cm}p{1.2cm}l}
+                     & humain & adorer & chien & os \\
+            \hline
+            \hline
+            Phrase A & 1      & 1      & 1     & 0  \\
+            Phrase B & 0      & 1      & 1     & 1  \\
+            Phrase C & 1      & 1      & 1     & 0  \\
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Pour résumer~: matrices de co-occurrences et sacs de mots}
+    \begin{block}{Avantages}
+        \begin{itemize}
+            \item Très simples à créer (on compte des occurrences)
+            \item Compréhensibles par des humains
         \end{itemize}
     \end{block}
+    \vfill
+    \begin{block}{Inconvénients}
+        \begin{itemize}
+            \item Taille des vecteurs = taille du vocabulaire
+            \item Quid des mots polysémiques ?
+            \item Quid des variantes orthographiques ?
+            \item Quid des expressions multi-mots ?
+            \item Quid des néologismes (mots non-vus) ?
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\section{Vectorisation~: pour aller plus loin}
+
+\begin{exoframe}
+    \begin{center}
+        \Large
+        La vectorisation ne s'arrête pas au \textbf{comptage} de \textbf{mots} ! \\
+        \vspace{20pt}
+        Nous ne sommes pas limités aux \textbf{sacs de mots}. \\
+        On peut aller plus loin qu'un simple \textbf{comptage}. 
+    \end{center}
+\end{exoframe}
+
+\begin{frame}{Représentation par sacs de N-grammes}
+    \pause
+    Rien ne sert de courir, il faut partir à point
+    \vfill
+    \begin{block}{N-grammes de caractères}
+        \begin{itemize}
+            \item Bi-grammes~: \wordbox{ri} \wordbox{ie} \wordbox{en} \wordbox{nn} \wordbox{ne}...
+            \item Tri-grammes~: \wordbox{rie} \wordbox{ien} \wordbox{enn} \wordbox{nne} \wordbox{nes}...
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{block}{N-grammes de mots/tokens}
+        \begin{itemize}
+            \item Bi-grammes~: \wordbox{rien ne} \wordbox{ne sert} \wordbox{sert de} \wordbox{de courir} \wordbox{courir il}...
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{center}
+        \Large
+        C'est dur ? Utilisez l'astuce de la fenêtre !
+    \end{center}
+\end{frame}
+
+\begin{frame}{Pondération TF-IDF}
+    \begin{block}{Intuitions}
+        \begin{itemize}
+            \item Compter des mots, c'est quand même un peu limité
+            \item On peut remplacer ce comptage par un calcul
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{block}{Pondération TF-IDF}
+        \begin{itemize}
+            \item Mesure statistique (bouh des maths)
+            \item Évalue l'importance d'un terme dans un corpus
+            \item Combine deux mesures~: le TF et l'IDF
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{center}
+        \Large
+        Le TF-IDF permet de pondérer chaque mot. \\
+        Un mot très souvent utilisé aura un TF-IDF important.
+    \end{center}
+\end{frame}
+
+\begin{frame}{Comment la calculer ?}
+    \begin{minipage}{0.3\columnwidth}
+        \begin{center}
+            TF \\ (term frequency)
+            \begin{equation*}
+                \frac{N~terme~dans~document}{N~mots~dans~document}
+            \end{equation*}
+        \end{center}
+    \end{minipage}
+    \hspace{15pt}
+    \begin{minipage}{0.35\columnwidth}
+        \begin{center}
+            IDF \\ (inverted doc. frequency)
+            \begin{equation*}
+                log(\frac{N~documents}{N~documents~avec~terme})
+            \end{equation*}
+        \end{center}
+    \end{minipage}
+    \hspace{45pt}
+    \begin{minipage}{0.1\columnwidth}
+        \begin{center}
+            TF-IDF \\ \textcolor{white}{TF-IDF}
+            \begin{equation*}
+                TF~x~IDF
+            \end{equation*}
+        \end{center}
+    \end{minipage}
+    \vfill
+    \begin{block}{En français}
+        \begin{itemize}
+            \item TF~: fréquence du terme dans un document
+            \item IDF~: inverse de la répartition du terme dans un corpus
+            \item TF-IDF~: le produit des deux
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Application de la pondération TF-IDF}
+    \begin{itemize}
+        \item Phrase A~: les humains adorent les chiens
+        \item Phrase B~: le chien adore les os
+        \item Phrase C~: les chiens adorent les humains
+    \end{itemize}
+    \vfill
+    \pause
+    \begin{table}
+        \begin{tabular}{lp{0.6cm}p{1.2cm}p{1.2cm}p{1.2cm}p{0.6cm}p{1.2cm}p{1.2cm}l}
+                     & les  & humains & adorent & chiens & le & chien  & adore & os   \\
+            \hline
+            \hline
+            Phrase A & 0.66 & 0.42    & 0.42   & 0.42   & 0     & 0    & 0     & 0    \\
+            Phrase B & 0.28 & 0       & 0      & 0      & 0.47  & 0.47 & 0.47  & 0.47 \\
+            Phrase C & 0.66 & 0.42    & 0.42   & 0.42   & 0     & 0    & 0     & 0    \\
+        \end{tabular}
+    \end{table}
+    \vfill
     \pause
     \begin{center}
         \Large
-        Les regex ne peuvent pas tout faire. \\
-        Elles peuvent devenir dures à lire et comprendre. \\
-        \pause
-        \vspace{10pt}
-        $\hat{}$([a-z0-9\_\bs .-]+)@([\bs da-z\bs .-]+)\bs .([a-z\bs .]\{2,6\})\$
+        Quel problème rencontre-t-on encore ?
     \end{center}
 \end{frame}
 
-\begin{frame}{Pour résumer}
-    \begin{block}{Les regex permettent de...}
-        \begin{itemize}
-            \item Retrouver des informations dans un texte
-            \item Exprimer diverses expressions à l'aide d'un unique motif
-            \item Procéder des textes afin de les traiter en TAL
-        \end{itemize}
-    \end{block}
-    \vspace{15pt}
+\begin{exoframe}
     \begin{center}
         \Large
-        Prochain cours~: on reprend le cours de la dernière fois !
+        Les LLMs utilisent-ils un procédé de vectorisation ? \\
+        \vspace{15pt}
+        Oui, mais ils sont bien plus complexes ! \\
+        (Nous ne les verrons pas pendant ce cours)
     \end{center}
+\end{exoframe}
+
+\begin{frame}{Petit aperçu des différentes méthodes}
+    \begin{figure}
+        \includegraphics[width=0.7\columnwidth]{../../../FIGURES/découverte_tal/vectorization_processes.png}
+        \caption*{Source~: Hesam Sheikh Hassani\footnote{\url{https://huggingface.co/hesamation}}}
+    \end{figure}
 \end{frame}
 
-% slide pk on ne fait pas tout en regex : identifier les noms de famille : Un magicien n'est jamais en retard, Frodon Sacquet, ni en avance d'ailleurs. Il arrive précisément à l'heure prévue. => comment distinguer frodon de saquet ?
+\begin{frame}{Pour résumer~: vectorisation}
+    \begin{block}{Avantages}
+        \begin{itemize}
+            \item Capture d'informations contextuelles pour chaque mot
+            \item Capture des relations entre les mots
+            \item Transforme des données textuelles en données numériques
+        \end{itemize}
+    \end{block}
+    \vfill
+    \begin{block}{Inconvénients}
+        \begin{itemize}
+            \item Taille d'un vecteur = taille du vocabulaire
+            \item Il faut trouver des moyens de réduire la taille des vecteurs
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{exoframe}{Remarque importante}
+    \begin{center}
+        \Large
+        Les vecteurs ne sont que des suites de chiffres ! \\
+        Ils stockent les informations contextuelles de chaque mot.
+    \end{center}
+    \vfill
+    \begin{block}{En conséquence~:}
+        \begin{itemize} \color{white}
+            \item Vecteur d'un mot $\ne$ définition d'un mot
+            \item Les représentations sont biaisées par le contenu des corpus
+        \end{itemize}
+    \end{block}
+\end{exoframe}
+
+\begin{frame}{Doggy bag}
+    \begin{minipage}{0.45\columnwidth}
+        \begin{block}{Vectorisation}
+            \begin{itemize}
+                \item Texte $\Rightarrow$ vecteurs
+                \item Informations contextuelles
+                \item Relations entre mots
+            \end{itemize}
+        \end{block}
+        \begin{block}{Méthodes}
+            \begin{itemize}
+                \item Matrices de co-occurrences
+                \item Sacs de mots
+                \item N-grammes (char,token)
+                \item Pondération (TF-IDF)
+            \end{itemize}
+        \end{block}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\columnwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\columnwidth]{../../../FIGURES/divers/doggybag.jpg}
+        \end{figure}
+    \end{minipage}
+\end{frame}
 
 \end{document}
