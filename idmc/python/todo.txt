@@ -1,0 +1,14 @@
+- they work by group of 2 :
+    - tell then that there will always be a better student in the group
+    - the other student should ask questions to the better student
+    - the better student should always try to answer these questions
+    - if something is going wrong, please let me know when you can
+
+- i should have a clear plan for recap sessions
+    - its too messy as it is
+    - ask for student to prepare questions ?
+    - ask them with wooclap the exercises they want to do ?
+    - in that case, give them a list of exercises they might want to correct
+    - evaluate TDs before big recaps 
+
+- CM7 second part (cochonneries en Python) worked well, do more of it during CM ?
