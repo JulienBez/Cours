@@ -1,2 +1,4 @@
 - le CM4 a duré 45 minutes, le rallonger
 - le CM1 a duré 1 heure, le rallonger
+- CM5 => ajouter exercice sur quelle approche pour quelle tâche (en reprenant tâches du CM2)
+  + expliquer qu'on peut utiliser en tandem des approches
